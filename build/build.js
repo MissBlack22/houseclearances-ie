@@ -388,7 +388,8 @@ function build() {
 <p>Practical guides on house clearance, waste, and clearing a property in Dublin and Leinster — from the team at HouseClearances.ie.</p>
 <div class="blog-grid">
   ${blogCards}
-</div>`;
+</div>
+<!-- [CONTACT FORM PLACEHOLDER] -->`;
   writePage('/blog/', page(
     { title: 'Blog | House Clearance Tips & Guides | HouseClearances.ie', description: 'Practical guides on house clearance, waste and clearing a property in Dublin and Leinster.', slug: '/blog/', h1: 'House Clearance Tips, Guides & Advice' },
     blogIndexBody,
