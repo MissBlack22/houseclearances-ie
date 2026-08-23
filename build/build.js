@@ -215,6 +215,7 @@ function page(meta, body, breadcrumb) {
 <title>${meta.title}</title>
 <meta name="description" content="${meta.description}">
 <link rel="canonical" href="${shareUrl}">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="HouseClearances.ie">
 <meta property="og:title" content="${meta.h1 || meta.title}">
@@ -303,10 +304,13 @@ ${bodyWithForm}
 </html>`;
 }
 
+const SITEMAP_SLUGS = [];
+
 function writePage(slug, html) {
   const dir = slug === '/' ? SITE : path.join(SITE, slug.replace(/^\/|\/$/g, ''));
   fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(dir, 'index.html'), html);
+  SITEMAP_SLUGS.push(slug);
 }
 
 function build() {
@@ -315,6 +319,7 @@ function build() {
 
   // Shared assets
   fs.copyFileSync(path.join(ROOT, 'site-assets', 'style.css'), path.join(SITE, 'style.css'));
+  fs.copyFileSync(path.join(ROOT, 'site-assets', 'favicon.svg'), path.join(SITE, 'favicon.svg'));
   const imgSrc = path.join(ROOT, 'site-assets', 'images');
   const imgDst = path.join(SITE, 'images');
   fs.mkdirSync(imgDst, { recursive: true });
@@ -423,7 +428,23 @@ function build() {
   );
   fs.writeFileSync(path.join(SITE, '404.html'), notFoundHtml);
 
-  console.log(`Built: home, locations hub, ${fs.readdirSync(svcDir).length} service pages, ${locCount} location pages, ${posts.length} blog posts.`);
+  // Sitemap (thank-you page excluded — it's a utility redirect target, not real content)
+  const sitemapUrls = SITEMAP_SLUGS.filter(s => s !== '/thank-you/');
+  const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${sitemapUrls.map(s => `  <url><loc>https://houseclearances.ie${s}</loc></url>`).join('\n')}
+</urlset>
+`;
+  fs.writeFileSync(path.join(SITE, 'sitemap.xml'), sitemapXml);
+
+  // Robots
+  fs.writeFileSync(path.join(SITE, 'robots.txt'), `User-agent: *
+Allow: /
+
+Sitemap: https://houseclearances.ie/sitemap.xml
+`);
+
+  console.log(`Built: home, locations hub, ${fs.readdirSync(svcDir).length} service pages, ${locCount} location pages, ${posts.length} blog posts, ${sitemapUrls.length} sitemap URLs.`);
 }
 
 build();
