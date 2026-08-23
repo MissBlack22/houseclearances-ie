@@ -191,13 +191,15 @@ function page(meta, body, breadcrumb) {
   const formHtml = `
   <div class="quote-form">
     <h3>Request a Free Quote</h3>
-    <form onsubmit="event.preventDefault(); alert('This is a local preview — the real form will connect once deployed.');">
+    <form name="quote-request" method="POST" action="/thank-you/" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="quote-request">
+      <p class="form-hidden"><label>Don't fill this out if you're human: <input name="bot-field"></label></p>
       <div class="form-row">
-        <input type="text" placeholder="Your name" required>
-        <input type="tel" placeholder="Phone number" required>
+        <input type="text" name="name" placeholder="Your name" required>
+        <input type="tel" name="phone" placeholder="Phone number" required>
       </div>
-      <input type="email" placeholder="Email address" required>
-      <textarea placeholder="What needs clearing?" rows="3" required></textarea>
+      <input type="email" name="email" placeholder="Email address" required>
+      <textarea name="message" placeholder="What needs clearing?" rows="3" required></textarea>
       <button type="submit">Get My Free Quote</button>
     </form>
   </div>`;
@@ -282,7 +284,7 @@ ${bodyWithForm}
     </div>
   </div>
   <div class="footer-bottom">
-    <p>&copy; ${new Date().getFullYear()} HouseClearances.ie &mdash; Local preview build — not yet live.</p>
+    <p>&copy; ${new Date().getFullYear()} HouseClearances.ie</p>
   </div>
 </footer>
 </body>
@@ -391,6 +393,13 @@ function build() {
     { title: 'Blog | House Clearance Tips & Guides | HouseClearances.ie', description: 'Practical guides on house clearance, waste and clearing a property in Dublin and Leinster.', slug: '/blog/', h1: 'House Clearance Tips, Guides & Advice' },
     blogIndexBody,
     `<a href="/">Home</a> &rsaquo; Blog`
+  ));
+
+  // Thank you (form submission redirect)
+  writePage('/thank-you/', page(
+    { title: 'Thank You | HouseClearances.ie', description: 'Thanks for your quote request — we will be in touch shortly.', slug: '/thank-you/', h1: 'Thanks — We\'ve Got Your Request' },
+    `<h1>Thanks — We've Got Your Request</h1><p>We've received your details and will be in touch shortly to arrange your free, no-obligation quote. If it's urgent, call us on <a href="tel:+353830904545">083 090 4545</a>.</p><p><a href="/">Return to the homepage</a></p>`,
+    `<a href="/">Home</a> &rsaquo; Thank You`
   ));
 
   // 404
