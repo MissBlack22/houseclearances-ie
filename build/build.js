@@ -204,6 +204,8 @@ function page(meta, body, breadcrumb) {
     </form>
   </div>`;
   const bodyWithForm = body.replace(/<!-- \[CONTACT FORM PLACEHOLDER\] -->/g, formHtml);
+  const shareImage = meta.image || 'van-exterior-hero.jpg';
+  const shareUrl = `https://houseclearances.ie${meta.slug}`;
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -212,7 +214,17 @@ function page(meta, body, breadcrumb) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${meta.title}</title>
 <meta name="description" content="${meta.description}">
-<link rel="canonical" href="https://houseclearances.ie${meta.slug}">
+<link rel="canonical" href="${shareUrl}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="HouseClearances.ie">
+<meta property="og:title" content="${meta.h1 || meta.title}">
+<meta property="og:description" content="${meta.description}">
+<meta property="og:url" content="${shareUrl}">
+<meta property="og:image" content="https://houseclearances.ie/images/${shareImage}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${meta.h1 || meta.title}">
+<meta name="twitter:description" content="${meta.description}">
+<meta name="twitter:image" content="https://houseclearances.ie/images/${shareImage}">
 <link rel="stylesheet" href="/style.css">
 </head>
 <body>
