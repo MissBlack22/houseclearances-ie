@@ -125,7 +125,7 @@ function trustBadge() {
 // after-shots were found for these particular jobs.
 const GALLERY_IMAGES = [
   ['van-loaded-clearance.jpg', 'A van loaded with furniture and belongings during a clearance'],
-  ['storage-unit-facility.jpg', 'A row of self-storage units cleared by HouseClearances.ie'],
+  ['storage-unit-clearance-dun-laoghaire-empty.jpg', 'A self-storage unit in Dún Laoghaire left fully empty after a HouseClearances.ie clearance'],
   ['garage-clutter-clearance.jpg', 'A cluttered garage full of tools and furniture before clearance'],
   ['attic-skylight-boxes.jpg', 'An attic room full of boxes ready for clearance'],
   ['kitchen-house-clearance.jpg', 'A kitchen and dining area cleared during a house clearance'],
