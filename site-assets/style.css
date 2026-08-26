@@ -100,6 +100,11 @@ li { margin-bottom: 0.5rem; }
 .content-inner { max-width: 760px; margin: 0 auto; padding: 0 24px; }
 .content-inner:has(.location-grid) { max-width: 1000px; }
 
+.content-inner table { width: 100%; border-collapse: collapse; margin: 0 0 1.5rem; font-size: 0.95rem; }
+.content-inner th, .content-inner td { text-align: left; padding: 10px 14px; border: 1px solid var(--border); }
+.content-inner th { background: var(--cream); color: var(--navy); font-family: var(--font-heading); }
+.content-inner tr:nth-child(even) td { background: var(--cream); }
+
 /* ===== Quote form ===== */
 .quote-form {
   background: var(--cream);
