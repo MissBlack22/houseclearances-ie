@@ -187,6 +187,72 @@ function parseFragment(raw) {
   return { meta, body };
 }
 
+const SERVICE_URLS = new Set(NAV_SERVICES.map(([, url]) => url));
+
+function stripTags(s) {
+  return s.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+}
+
+// FAQPage schema — only from the genuine, visible FAQ section (after the "Frequently Asked
+// Questions" heading), so it can never accidentally pick up unrelated <h3>/<p> markup
+// elsewhere on the page (e.g. the quote form's heading or blog index cards) and always
+// matches what a visitor actually sees, per Google's FAQPage requirements.
+function buildFaqSchema(bodyHtml) {
+  const faqStart = bodyHtml.indexOf('Frequently Asked Questions');
+  if (faqStart === -1) return '';
+  const faqSection = bodyHtml.slice(faqStart);
+  const pairs = [...faqSection.matchAll(/<h3>(.*?)<\/h3>\s*<p>([\s\S]*?)<\/p>/g)];
+  if (pairs.length < 2) return '';
+  const mainEntity = pairs.map(([, q, a]) => ({
+    "@type": "Question",
+    "name": stripTags(q),
+    "acceptedAnswer": { "@type": "Answer", "text": stripTags(a) }
+  }));
+  return `<script type="application/ld+json">${JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": mainEntity
+  })}</script>`;
+}
+
+// BreadcrumbList schema — built from the exact same breadcrumb trail already rendered as
+// visible HTML (see the `crumb`/breadcrumb variables at each call site), so the two can
+// never drift out of sync.
+function buildBreadcrumbSchema(breadcrumbHtml, currentName, currentUrl) {
+  if (!breadcrumbHtml) return '';
+  const items = [...breadcrumbHtml.matchAll(/<a href="([^"]+)">([^<]+)<\/a>/g)]
+    .map(([, href, name]) => ({
+      name: stripTags(name),
+      url: href.startsWith('http') ? href : `https://houseclearances.ie${href}`
+    }));
+  items.push({ name: stripTags(currentName), url: currentUrl });
+  return `<script type="application/ld+json">${JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": items.map((it, i) => ({ "@type": "ListItem", "position": i + 1, "name": it.name, "item": it.url }))
+  })}</script>`;
+}
+
+// Service schema — only on the 12 real service pages, matched against NAV_SERVICES so it
+// can never fire on a location/blog/home page by mistake.
+function buildServiceSchema(meta, shareUrl) {
+  if (!SERVICE_URLS.has(meta.slug)) return '';
+  return `<script type="application/ld+json">${JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "serviceType": meta.h1,
+    "name": meta.h1,
+    "url": shareUrl,
+    "areaServed": ["Dublin", "Kildare", "Wicklow", "Carlow"],
+    "provider": {
+      "@type": "LocalBusiness",
+      "name": "HouseClearances.ie",
+      "telephone": "+353830904545",
+      "url": "https://houseclearances.ie"
+    }
+  })}</script>`;
+}
+
 function page(meta, body, breadcrumb) {
   const formHtml = `
   <div class="quote-form">
@@ -206,6 +272,11 @@ function page(meta, body, breadcrumb) {
   const bodyWithForm = body.replace(/<!-- \[CONTACT FORM PLACEHOLDER\] -->/g, formHtml);
   const shareImage = meta.image || 'van-exterior-hero.jpg';
   const shareUrl = `https://houseclearances.ie${meta.slug}`;
+  // Schema built from `body` (pre-form-injection) so the FAQ extractor never sees the
+  // quote form's own "Request a Free Quote" <h3>.
+  const faqSchema = buildFaqSchema(body);
+  const breadcrumbSchema = buildBreadcrumbSchema(breadcrumb, meta.h1 || meta.title, shareUrl);
+  const serviceSchema = buildServiceSchema(meta, shareUrl);
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -227,6 +298,9 @@ function page(meta, body, breadcrumb) {
 <meta name="twitter:description" content="${meta.description}">
 <meta name="twitter:image" content="https://houseclearances.ie/images/${shareImage}">
 <link rel="stylesheet" href="/style.css">
+${breadcrumbSchema}
+${serviceSchema}
+${faqSchema}
 </head>
 <body>
 <header class="site-header">
@@ -324,6 +398,13 @@ function build() {
   const imgDst = path.join(SITE, 'images');
   fs.mkdirSync(imgDst, { recursive: true });
   for (const f of fs.readdirSync(imgSrc)) fs.copyFileSync(path.join(imgSrc, f), path.join(imgDst, f));
+
+  const dlSrc = path.join(ROOT, 'site-assets', 'downloads');
+  if (fs.existsSync(dlSrc)) {
+    const dlDst = path.join(SITE, 'downloads');
+    fs.mkdirSync(dlDst, { recursive: true });
+    for (const f of fs.readdirSync(dlSrc)) fs.copyFileSync(path.join(dlSrc, f), path.join(dlDst, f));
+  }
   fs.writeFileSync(path.join(SITE, 'netlify.toml'), `[build]
   publish = "."
 
