@@ -9,7 +9,10 @@ house clearance in Bray (local, Wicklow), what to do when someone dies in Irelan
 (pillar guide + free downloadable checklist/inventory CSVs, out-of-queue-order addition from the digital-product
 business research — see winner report; this is the "Executor & House-Clearance Starter Kit" lead-magnet play),
 moving abroad — clearing a property before you go,
-household waste vs hazardous waste in a clearance.
+household waste vs hazardous waste in a clearance,
+hoarder clearance Dublin — complete pillar guide with embedded video, FAQ schema and
+VideoObject/BlogPosting schema (out-of-queue-order addition, explicit user request 2026-09-07;
+linked back from the /hoarder-clearance/ service page).
 
 Next up, in order — one per automation run. Each should follow the same rules as every page on
 this site: no fabricated reviews, stats, credentials or landmarks; real photos only from the

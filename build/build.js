@@ -253,6 +253,54 @@ function buildServiceSchema(meta, shareUrl) {
   })}</script>`;
 }
 
+// BlogPosting schema — every real blog post (anything under /blog/ with its own DATE, i.e.
+// not the /blog/ index itself). Built only from the post's own metadata, never invented.
+function buildArticleSchema(meta, shareUrl) {
+  if (!meta.slug || meta.slug === '/blog/' || !meta.slug.startsWith('/blog/') || !meta.date) return '';
+  return `<script type="application/ld+json">${JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": meta.h1 || meta.title,
+    "description": meta.description,
+    "image": `https://houseclearances.ie/images/${meta.image || 'van-exterior-hero.jpg'}`,
+    "datePublished": meta.date,
+    "dateModified": meta.date,
+    "author": { "@type": "Organization", "name": "HouseClearances.ie" },
+    "publisher": { "@type": "Organization", "name": "HouseClearances.ie" },
+    "mainEntityOfPage": shareUrl
+  })}</script>`;
+}
+
+// VideoObject schema — only for a specific, verified real embed (matched by YouTube video ID),
+// using metadata pulled from YouTube's own oEmbed/watch-page data rather than invented figures.
+// Deliberately allowlisted rather than generic, so a future unrelated embed can never emit
+// schema with someone else's video's facts.
+const KNOWN_VIDEOS = {
+  '461xCRAIBgc': {
+    name: 'Hoarder Clearance Dublin | Krystal Klean Express',
+    description: 'A short clip showing the clearance team removing household contents as part of a hoarder/severe clutter clearance job in Dublin.',
+    thumbnailUrl: 'https://i.ytimg.com/vi/461xCRAIBgc/hqdefault.jpg',
+    uploadDate: '2025-11-11T12:50:21-08:00',
+    duration: 'PT39S'
+  }
+};
+function buildVideoSchema(bodyHtml) {
+  const m = bodyHtml.match(/data-video-id="([a-zA-Z0-9_-]+)"/);
+  const v = m && KNOWN_VIDEOS[m[1]];
+  if (!v) return '';
+  return `<script type="application/ld+json">${JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "name": v.name,
+    "description": v.description,
+    "thumbnailUrl": v.thumbnailUrl,
+    "uploadDate": v.uploadDate,
+    "duration": v.duration,
+    "embedUrl": `https://www.youtube.com/embed/${m[1]}`,
+    "contentUrl": `https://www.youtube.com/watch?v=${m[1]}`
+  })}</script>`;
+}
+
 function page(meta, body, breadcrumb) {
   const formHtml = `
   <div class="quote-form">
@@ -277,6 +325,8 @@ function page(meta, body, breadcrumb) {
   const faqSchema = buildFaqSchema(body);
   const breadcrumbSchema = buildBreadcrumbSchema(breadcrumb, meta.h1 || meta.title, shareUrl);
   const serviceSchema = buildServiceSchema(meta, shareUrl);
+  const articleSchema = buildArticleSchema(meta, shareUrl);
+  const videoSchema = buildVideoSchema(body);
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -301,6 +351,8 @@ function page(meta, body, breadcrumb) {
 ${breadcrumbSchema}
 ${serviceSchema}
 ${faqSchema}
+${articleSchema}
+${videoSchema}
 </head>
 <body>
 <header class="site-header">
