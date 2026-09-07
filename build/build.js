@@ -188,6 +188,9 @@ function parseFragment(raw) {
 }
 
 const SERVICE_URLS = new Set(NAV_SERVICES.map(([, url]) => url));
+// Standalone pillar pages that aren't in the main nav dropdown (to avoid a redundant-looking
+// second "storage" entry) but are genuinely service-type pages and should get Service schema.
+SERVICE_URLS.add('/storage-clearance-dublin/');
 
 function stripTags(s) {
   return s.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
@@ -282,6 +285,13 @@ const KNOWN_VIDEOS = {
     thumbnailUrl: 'https://i.ytimg.com/vi/461xCRAIBgc/hqdefault.jpg',
     uploadDate: '2025-11-11T12:50:21-08:00',
     duration: 'PT39S'
+  },
+  'bsG3-0IcAzo': {
+    name: 'Storage Unit Clearance Dublin | Krystal Klean Express',
+    description: 'A short clip showing the clearance team at work during a storage unit clearance job in Dublin.',
+    thumbnailUrl: 'https://i.ytimg.com/vi/bsG3-0IcAzo/hqdefault.jpg',
+    uploadDate: '2025-10-20T13:49:02-07:00',
+    duration: 'PT8S'
   }
 };
 function buildVideoSchema(bodyHtml) {
