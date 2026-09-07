@@ -246,7 +246,7 @@ function buildServiceSchema(meta, shareUrl) {
     "serviceType": meta.h1,
     "name": meta.h1,
     "url": shareUrl,
-    "areaServed": ["Dublin", "Kildare", "Wicklow", "Carlow"],
+    "areaServed": ["Dublin", "Kildare", "Wicklow", "Kilkenny", "Carlow"],
     "provider": {
       "@type": "LocalBusiness",
       "name": "HouseClearances.ie",
