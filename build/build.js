@@ -191,6 +191,7 @@ const SERVICE_URLS = new Set(NAV_SERVICES.map(([, url]) => url));
 // Standalone pillar pages that aren't in the main nav dropdown (to avoid a redundant-looking
 // second "storage" entry) but are genuinely service-type pages and should get Service schema.
 SERVICE_URLS.add('/storage-clearance-dublin/');
+SERVICE_URLS.add('/junk-removal-dublin/');
 
 function stripTags(s) {
   return s.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
