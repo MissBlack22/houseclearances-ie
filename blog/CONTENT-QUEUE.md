@@ -1,6 +1,6 @@
 # Blog Content Queue
 
-Published (21): skip hire alternative, clearing before probate, man-and-van vs clearance company,
+Published (22): skip hire alternative, clearing before probate, man-and-van vs clearance company,
 what happens to your stuff after clearance, house clearance cost in Dublin, house clearance in Swords (local),
 downsizing a home, clearing a hoarder's home, preparing a rental property for new tenants,
 what to do with an old sofa you can't sell, attic clearance what's worth keeping,
@@ -17,40 +17,42 @@ VideoObject/BlogPosting schema (out-of-queue-order addition, explicit user reque
 linked back from the /hoarder-clearance/ service page),
 garden clearance before selling — does it actually add value (kerb appeal, buyer psychology,
 what's worth clearing vs a landscaping spend, links to /garden-waste-clearance/ and
-/shed-clearance/).
+/shed-clearance/),
+what a waste collection permit actually means and why it matters to homeowners (NWCPO, the 2007
+regulations, householder duty of care, how to verify a company's permit, links to /house-clearance/
+and /junk-removal-dublin/).
 
 Next up, in order — one per automation run. Each should follow the same rules as every page on
 this site: no fabricated reviews, stats, credentials or landmarks; real photos only from the
 approved/privacy-screened pool in site-assets/images/; no medical claims in hoarder content.
 
-1. What a Waste Collection Permit Actually Means (And Why It Matters to You)
-2. End of Tenancy Clearance: Avoiding Deposit Deductions
-3. Do You Need to Be Home During a House Clearance?
-4. What Happens to Old Paperwork and Documents During a Clearance
-5. WEEE Rules: What Actually Happens to Old Electronics During a Clearance
-6. Full vs Partial House Clearance: What's the Difference?
-7. DIY House Clearance vs Hiring a Professional: What It Actually Costs You
-8. Clearing an Apartment Before Handing Back the Keys
-9. A Landlord's Guide to Clearing a Commercial Unit Before a Lease Ends
-10. Autumn Garden Clearance: Getting Ahead of Leaf Fall and Cutbacks
-11. House Clearance in Maynooth: A Local Guide (Kildare)
-12. House Clearance in Greystones: A Local Guide (Wicklow)
-13. What to Do With an Old Piano Nobody Wants
-14. What Actually Happens to Recyclable Materials After a House Clearance
-15. Storage Unit vs House Clearance: Which Do You Actually Need? (cluster post, link to
+1. End of Tenancy Clearance: Avoiding Deposit Deductions
+2. Do You Need to Be Home During a House Clearance?
+3. What Happens to Old Paperwork and Documents During a Clearance
+4. WEEE Rules: What Actually Happens to Old Electronics During a Clearance
+5. Full vs Partial House Clearance: What's the Difference?
+6. DIY House Clearance vs Hiring a Professional: What It Actually Costs You
+7. Clearing an Apartment Before Handing Back the Keys
+8. A Landlord's Guide to Clearing a Commercial Unit Before a Lease Ends
+9. Autumn Garden Clearance: Getting Ahead of Leaf Fall and Cutbacks
+10. House Clearance in Maynooth: A Local Guide (Kildare)
+11. House Clearance in Greystones: A Local Guide (Wicklow)
+12. What to Do With an Old Piano Nobody Wants
+13. What Actually Happens to Recyclable Materials After a House Clearance
+14. Storage Unit vs House Clearance: Which Do You Actually Need? (cluster post, link to
     /storage-clearance-dublin/ and /storage-unit-clearance/)
-16. How to Prepare a Storage Unit for Clearance: A Quick Checklist (cluster post, link to
+15. How to Prepare a Storage Unit for Clearance: A Quick Checklist (cluster post, link to
     /storage-clearance-dublin/)
-17. What to Do With a Storage Unit You've Genuinely Forgotten About (cluster post, link to
+16. What to Do With a Storage Unit You've Genuinely Forgotten About (cluster post, link to
     /storage-clearance-dublin/)
-18. What Happens to a Deceased Relative's Storage Unit (cluster post bridging bereavement +
+17. What Happens to a Deceased Relative's Storage Unit (cluster post bridging bereavement +
     storage — link to /bereavement-clearance/ and /storage-clearance-dublin/)
-19. Supporting a Family Member Through a Hoarder Clearance: A Practical Guide for Relatives
+18. Supporting a Family Member Through a Hoarder Clearance: A Practical Guide for Relatives
     (cluster post, link to /blog/hoarder-clearance-dublin/ and /hoarder-clearance/ — keep the
     same non-clinical, non-judgemental tone as the pillar guide, no diagnostic language)
-20. The Difference Between Junk Removal and House Clearance
-21. What Counts as Bulky Waste in Dublin (And What Doesn't)
-22. How Much Does Furniture Removal Cost in Dublin? (cost-factors only, no invented prices)
-23. Preparing a Deceased Estate for Sale: A Practical Checklist (link to /bereavement-clearance/)
-24. House Clearance in Malahide: A Local Guide (Fingal, coastal)
-25. House Clearance in Dundrum: A Local Guide (South Dublin)
+19. The Difference Between Junk Removal and House Clearance
+20. What Counts as Bulky Waste in Dublin (And What Doesn't)
+21. How Much Does Furniture Removal Cost in Dublin? (cost-factors only, no invented prices)
+22. Preparing a Deceased Estate for Sale: A Practical Checklist (link to /bereavement-clearance/)
+23. House Clearance in Malahide: A Local Guide (Fingal, coastal)
+24. House Clearance in Dundrum: A Local Guide (South Dublin)
