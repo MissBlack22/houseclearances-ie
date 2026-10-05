@@ -36,14 +36,20 @@ function imgSize(file) {
   _dimCache[file] = dim;
   return dim;
 }
+// Also wraps each local photo in <picture> with a WebP source when a pre-converted .webp sits next
+// to the JPEG in site-assets/images (made once with Pillow, so no build dependency). The JPEG stays
+// as the fallback and as the og:image. CSS sets picture { display: contents } so layouts don't change.
 function addImageDimensions(html) {
   return html.replace(/<img\b([^>]*?)>/g, (m, attrs) => {
-    if (/\swidth=/.test(attrs)) return m;
-    const src = attrs.match(/src="\/images\/([^"]+)"/);
+    const src = attrs.match(/src="\/images\/([^"]+)\.(jpe?g|png)"/);
     if (!src) return m;
-    const d = imgSize(src[1]);
-    if (!d) return m;
-    return `<img${attrs} width="${d[0]}" height="${d[1]}">`;
+    let img = m;
+    if (!/\swidth=/.test(attrs)) {
+      const d = imgSize(`${src[1]}.${src[2]}`);
+      if (d) img = `<img${attrs} width="${d[0]}" height="${d[1]}">`;
+    }
+    if (!fs.existsSync(path.join(IMG_DIR, `${src[1]}.webp`))) return img;
+    return `<picture><source srcset="/images/${src[1]}.webp" type="image/webp">${img}</picture>`;
   });
 }
 // The first hero image on a page is above the fold: it must NOT be lazy-loaded (hurts LCP).
@@ -67,10 +73,15 @@ const NAV_SERVICES = [
 ];
 
 // Genuine 5-star Google reviews from the operator's real Google Business Profile
-// ("House Clearance Spotless" — spotless.ie, 5.0/57 reviews, all 5-star). Sourced directly
+// ("House Clearance Spotless" — spotless.ie, 5.0/60 reviews as of 2026-10-05, all 5-star). Sourced directly
 // from Google Maps by the site owner (Ciprian), named as the person these reviews are about.
 // Text is the reviewer's own words as shown publicly on Google (some truncated by Google's own
 // "... More" — left as-is rather than guessing the rest). Tags used to place relevant reviews on matching pages.
+// Rating and count shown on the site. Update GBP_COUNT when the profile gains reviews.
+// The ?cid= link opens the listing reliably; the old /maps/place/...data= link did not.
+const GBP_RATING = '5.0';
+const GBP_COUNT = 60;
+const GBP_URL = 'https://www.google.com/maps?cid=12172343070336442597';
 const REVIEWS = [
   { id: 'lucinda', name: 'Lucinda Gallwey', time: '2 months ago', tags: ['bereavement','apartment'],
     text: `Ciprian and his team were so sympathetic and efficient when I contacted them to help clear out the apartment after a bereavement. The came and were very respectful in clearing completely everything, rubbish, books, clothes, kitchen, living…` },
@@ -153,16 +164,16 @@ function reviewsSection(tag, heading, includeSchema, opts = {}) {
   // stay visible on the page as ordinary content, attributed to the Google Business Profile.
   return `<section class="reviews-section" id="reviews">
     <h2>${heading}</h2>
-    <div class="reviews-summary"><span class="stars-big">★★★★★</span> <strong>5.0</strong> from 57 Google reviews</div>
+    <div class="reviews-summary"><span class="stars-big">★★★★★</span> <strong>${GBP_RATING}</strong> from ${GBP_COUNT} Google reviews</div>
     <div class="reviews-grid">
       ${picked.map(reviewCard).join('\n      ')}
     </div>
-    <p class="reviews-source">Genuine customer reviews from <a href="https://www.google.com/maps/place/House+Clearance+Spotless/data=!4m7!3m6!1s0x4ea876d84493a21b:0xa8ecd987d79760e5" target="_blank" rel="noopener">our Google Business Profile</a>.</p>
+    <p class="reviews-source">Genuine customer reviews from <a href="${GBP_URL}" target="_blank" rel="noopener">our Google Business Profile</a>.</p>
   </section>`;
 }
 
 function trustBadge() {
-  return `<div class="trust-badge"><span class="stars">★★★★★</span> <strong>5.0</strong> rated on Google &middot; <a href="/#reviews">57 reviews</a></div>`;
+  return `<div class="trust-badge"><span class="stars">★★★★★</span> <strong>${GBP_RATING}</strong> rated on Google &middot; <a href="/#reviews">${GBP_COUNT} reviews</a></div>`;
 }
 
 // Genuine job photos (privacy-screened — no visible personal mail, documents, or faces),
@@ -236,9 +247,8 @@ function parseFragment(raw) {
 }
 
 const SERVICE_URLS = new Set(NAV_SERVICES.map(([, url]) => url));
-// Standalone pillar pages that aren't in the main nav dropdown (to avoid a redundant-looking
-// second "storage" entry) but are genuinely service-type pages and should get Service schema.
-SERVICE_URLS.add('/storage-clearance-dublin/');
+// Standalone pillar page that isn't in the main nav dropdown but is a genuine service-type page
+// and should get Service schema.
 SERVICE_URLS.add('/junk-removal-dublin/');
 
 function stripTags(s) {
@@ -362,7 +372,8 @@ function buildVideoSchema(bodyHtml) {
 }
 
 // Organisation / LocalBusiness / WebSite — home page only. Deliberately contains NO rating or
-// review markup and NO street address (address not confirmed for this brand; see report).
+// review markup. Address is locality-level only (Athy, Co. Kildare, as stated on the operator's
+// sibling site propertyclearance.ie); no street address is published for this brand.
 function buildOrgSchema(meta) {
   if (meta.slug !== '/') return '';
   const graph = [
@@ -374,7 +385,8 @@ function buildOrgSchema(meta) {
       "url": "https://houseclearances.ie/",
       "telephone": "+353830904545",
       "email": "info@houseclearances.ie",
-      "description": "House, apartment, garage, shed, attic, storage and commercial clearance across Dublin and Leinster. Authorised waste carrier.",
+      "description": "House, apartment, garage, shed, attic, storage and commercial clearance across Dublin and Leinster. Fully insured, authorised waste carrier.",
+      "address": { "@type": "PostalAddress", "addressLocality": "Athy", "addressRegion": "County Kildare", "addressCountry": "IE" },
       "areaServed": ["Dublin", "County Kildare", "County Wicklow", "County Kilkenny", "County Carlow"].map(n => ({ "@type": "AdministrativeArea", "name": n })),
       "openingHoursSpecification": [{ "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "07:00", "closes": "20:00" }]
     },
@@ -592,11 +604,10 @@ ${bodyWithForm}
       <p class="footer-tagline">CLEAR &bull; REMOVE &bull; RECYCLE</p>
       <div class="footer-trust">
         <span>✔ Fully insured</span>
-        <span>✔ Fully trained crews</span>
+        <span>✔ Experienced crews</span>
         <span>✔ Public liability insurance</span>
       </div>
       <p class="footer-permit">HouseClearances.ie is operated by Krystal Klean Express Limited, an authorised waste carrier holding a valid Waste Collection Permit issued by the National Waste Collection Permit Office (NWCPO). Permit No: NWCPO-25-13287-01.</p>
-      <p class="footer-permit">Also need carpet or upholstery cleaning? Visit our sister company, <a href="https://krystalklean.ie/" target="_blank" rel="noopener">Krystal Klean Express</a></p>
     </div>
     <div class="footer-col">
       <h4>Services</h4>
@@ -660,7 +671,6 @@ const RELATED = {
   '/blog/house-clearance-swords-guide/': ['clHouse', 'choose'],
   '/blog/house-clearance-bray-guide/': ['clHouse', 'choose'],
   '/blog/house-clearance-naas-guide/': ['clHouse', 'choose'],
-  '/blog/clearing-hoarders-home-guide-for-families/': ['hoard', 'family'],
   '/blog/preparing-rental-property-new-tenants/': ['clLand'],
   '/blog/what-to-do-when-someone-dies-in-ireland/': ['family', 'clBer'],
   '/blog/can-you-clear-house-before-probate/': ['family', 'clBer'],
@@ -704,6 +714,15 @@ function build() {
     fs.mkdirSync(dlDst, { recursive: true });
     for (const f of fs.readdirSync(dlSrc)) fs.copyFileSync(path.join(dlSrc, f), path.join(dlDst, f));
   }
+  // Permanent redirects for pages merged into a stronger page (approved 2026-10-05). The merged
+  // source files are kept in archive/merged-2026-10/ for reference. _redirects is processed before
+  // the netlify.toml 404 catch-all.
+  fs.writeFileSync(path.join(SITE, '_redirects'), [
+    '/storage-clearance-dublin/  /storage-unit-clearance/  301',
+    '/storage-clearance-dublin   /storage-unit-clearance/  301',
+    '/blog/clearing-hoarders-home-guide-for-families/  /blog/hoarder-clearance-dublin/  301',
+    '/blog/clearing-hoarders-home-guide-for-families   /blog/hoarder-clearance-dublin/  301',
+  ].join('\n') + '\n');
   fs.writeFileSync(path.join(SITE, 'netlify.toml'), `[build]
   publish = "."
 
