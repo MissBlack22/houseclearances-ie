@@ -54,6 +54,5 @@ approved/privacy-screened pool in site-assets/images/; no medical claims in hoar
 18. The Difference Between Junk Removal and House Clearance
 19. What Counts as Bulky Waste in Dublin (And What Doesn't)
 20. How Much Does Furniture Removal Cost in Dublin? (cost-factors only, no invented prices)
-21. Preparing a Deceased Estate for Sale: A Practical Checklist (link to /bereavement-clearance/)
-22. House Clearance in Malahide: A Local Guide (Fingal, coastal)
-23. House Clearance in Dundrum: A Local Guide (South Dublin)
+21. House Clearance in Malahide: A Local Guide (Fingal, coastal)
+22. House Clearance in Dundrum: A Local Guide (South Dublin)
