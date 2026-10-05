@@ -41,18 +41,15 @@ approved/privacy-screened pool in site-assets/images/; no medical claims in hoar
 11. What to Do With an Old Piano Nobody Wants
 12. What Actually Happens to Recyclable Materials After a House Clearance
 13. Storage Unit vs House Clearance: Which Do You Actually Need? (cluster post, link to
-    /storage-clearance-dublin/ and /storage-unit-clearance/)
+    /storage-unit-clearance/)
 14. How to Prepare a Storage Unit for Clearance: A Quick Checklist (cluster post, link to
-    /storage-clearance-dublin/)
+    /storage-unit-clearance/)
 15. What to Do With a Storage Unit You've Genuinely Forgotten About (cluster post, link to
-    /storage-clearance-dublin/)
+    /storage-unit-clearance/)
 16. What Happens to a Deceased Relative's Storage Unit (cluster post bridging bereavement +
-    storage — link to /bereavement-clearance/ and /storage-clearance-dublin/)
-17. Supporting a Family Member Through a Hoarder Clearance: A Practical Guide for Relatives
-    (cluster post, link to /blog/hoarder-clearance-dublin/ and /hoarder-clearance/ — keep the
-    same non-clinical, non-judgemental tone as the pillar guide, no diagnostic language)
-18. The Difference Between Junk Removal and House Clearance
-19. What Counts as Bulky Waste in Dublin (And What Doesn't)
-20. How Much Does Furniture Removal Cost in Dublin? (cost-factors only, no invented prices)
-21. House Clearance in Malahide: A Local Guide (Fingal, coastal)
-22. House Clearance in Dundrum: A Local Guide (South Dublin)
+    storage — link to /bereavement-clearance/ and /storage-unit-clearance/)
+17. The Difference Between Junk Removal and House Clearance
+18. What Counts as Bulky Waste in Dublin (And What Doesn't)
+19. How Much Does Furniture Removal Cost in Dublin? (cost-factors only, no invented prices)
+20. House Clearance in Malahide: A Local Guide (Fingal, coastal)
+21. House Clearance in Dundrum: A Local Guide (South Dublin)
