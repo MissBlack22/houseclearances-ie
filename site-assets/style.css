@@ -451,3 +451,56 @@ li { margin-bottom: 0.5rem; }
   font-weight: 600;
   margin: 4px 0 0;
 }
+
+/* ===== Photo-quote CTA, upgraded quote form, mobile menu, checklists, print (added 2026-10) ===== */
+.photo-quote { background: #eef7ed; border: 1px solid #cfe6cc; border-radius: 12px; padding: 20px 24px; margin: 28px 0 0; }
+.photo-quote h3 { margin: 0 0 .5rem; }
+.photo-quote p { margin: 0 0 .75rem; }
+.photo-quote-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; }
+.btn-whatsapp, .btn-call { display: inline-block; padding: 12px 20px; border-radius: 30px; font-weight: 700; text-align: center; }
+.btn-whatsapp { background: #25d366; color: #0b3d1c; }
+.btn-call { background: var(--navy); color: #fff; }
+.btn-whatsapp:hover, .btn-call:hover { text-decoration: none; filter: brightness(.95); }
+.quote-form select { width: 100%; padding: 12px 14px; border: 1px solid var(--border); border-radius: 8px; font-family: inherit; font-size: .95rem; background: #fff; }
+.file-label { display: flex; flex-direction: column; gap: 6px; font-size: .92rem; color: var(--text-muted); }
+.file-label input[type=file] { padding: 10px; background: #fff; }
+.photo-note { margin: 0; font-size: .9rem; color: #8a4b00; background: #fff6e5; border: 1px solid #f0d6a8; border-radius: 8px; padding: 8px 12px; }
+.mobile-nav { display: none; position: relative; }
+.mobile-nav summary { list-style: none; cursor: pointer; font-weight: 700; color: var(--navy); padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; }
+.mobile-nav summary::-webkit-details-marker { display: none; }
+.mobile-nav-panel { position: absolute; right: 0; top: 46px; width: 260px; max-height: 70vh; overflow: auto; background: #fff; border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 10px 24px rgba(0,0,0,.15); padding: 8px 0; z-index: 300; }
+.mobile-nav-panel a { display: block; padding: 10px 18px; color: var(--navy); font-weight: 600; }
+@media (max-width: 720px) {
+  .mobile-nav { display: block; }
+  .header-inner { gap: 10px; padding: 12px 16px; }
+  .btn-whatsapp, .btn-call { flex: 1 1 100%; }
+}
+/* Phones: logo + Menu + number don't fit on one line, so the call button becomes icon-only
+   (the number stays in the link text for screen readers, and in the floating buttons). */
+@media (max-width: 480px) {
+  .logo { font-size: 1.2rem; }
+  .header-cta { font-size: 0; gap: 0; padding: 10px; }
+  .header-cta svg { width: 18px; height: 18px; }
+}
+/* checklists */
+.checklist-tools { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 1rem 0 1.5rem; }
+.ct-btn { background: var(--navy); color: #fff; border: 0; border-radius: 30px; padding: 10px 18px; font-weight: 700; cursor: pointer; font-size: .9rem; }
+.ct-reset { background: #fff; color: var(--navy); border: 1px solid var(--border); }
+.ct-progress { font-weight: 600; color: var(--text-muted); font-size: .9rem; }
+.checklist { list-style: none; padding-left: 0; }
+.checklist li { margin-bottom: .35rem; }
+.checklist label { display: flex; gap: 12px; align-items: flex-start; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; background: #fff; cursor: pointer; }
+.checklist input[type=checkbox] { width: 20px; height: 20px; margin-top: 3px; flex: 0 0 auto; accent-color: var(--green); }
+.checklist input:checked + span { color: var(--text-muted); text-decoration: line-through; }
+.guide-note { background: var(--cream); border-left: 4px solid var(--green); padding: 14px 18px; border-radius: 6px; margin: 0 0 1.25rem; font-size: .95rem; }
+.guide-sources { font-size: .88rem; color: var(--text-muted); }
+@media print {
+  .site-header, .breadcrumb-bar, .floating-contact, .site-footer, .quote-form, .photo-quote, .checklist-tools, .reviews-section, .gallery-section { display: none !important; }
+  body { font-size: 11pt; }
+  .content-inner { max-width: 100%; padding: 0; }
+  .checklist label { border: 0; padding: 4px 0; }
+  a { color: #000; }
+}
+.related-guides { margin: 2rem 0; padding: 1rem 1.25rem; background: var(--cream); border: 1px solid var(--border); border-radius: 10px; }
+.related-guides h2 { margin-top: 0; font-size: 1.25rem; }
+.related-guides ul { margin: 0; }
