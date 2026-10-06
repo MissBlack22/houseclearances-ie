@@ -95,53 +95,58 @@ const NAV_SERVICES = [
 // Genuine 5-star Google reviews from the operator's real Google Business Profile
 // ("House Clearance Spotless" — spotless.ie, 5.0/60 reviews as of 2026-10-05, all 5-star). Sourced directly
 // from Google Maps by the site owner (Ciprian), named as the person these reviews are about.
-// Text is the reviewer's own words as shown publicly on Google (some truncated by Google's own
-// "... More" — left as-is rather than guessing the rest). Tags used to place relevant reviews on matching pages.
+// Text is the reviewer's own words exactly as shown on Google, typos included, with every "More" expanded
+// (full text re-read 2026-10-06 from the Google Search reviews panel). Never edit or tidy a review. Line breaks
+// are kept and rendered as <br>. Tags place relevant reviews on matching pages. Times are as shown on 2026-10-06.
 // Rating and count shown on the site. Update GBP_COUNT when the profile gains reviews.
 // The ?cid= link opens the listing reliably; the old /maps/place/...data= link did not.
 const GBP_RATING = '5.0';
 const GBP_COUNT = 60;
 const GBP_URL = 'https://www.google.com/maps?cid=12172343070336442597';
 const REVIEWS = [
-  { id: 'lucinda', name: 'Lucinda Gallwey', time: '2 months ago', tags: ['bereavement','apartment'],
-    text: `Ciprian and his team were so sympathetic and efficient when I contacted them to help clear out the apartment after a bereavement. The came and were very respectful in clearing completely everything, rubbish, books, clothes, kitchen, living…` },
-  { id: 'marian', name: 'Marian', time: '8 months ago', tags: ['attic'],
-    text: `I found Ciprians company on a Google search as I needed help with a very cluttered attic. I liked that the website said he would allow sorting and keeping on the day as I was as hoping to find items not seen for a long time. All other…` },
-  { id: 'irene', name: 'Irene Whelan', time: '2 months ago', tags: ['house'],
-    text: `I highly recommend Ciprian and his team. From my first contact to booking, everything was handled professionally and efficiently.` },
-  { id: 'kay', name: 'Kay Waldron', time: '2 months ago', tags: ['bereavement','house'],
-    text: `Excellent service clearing a full house following a bereavement. Ciprian and crew were professional, highly efficient with good communication and completed the job within two days as promised. Their fees were very reasonable and there were…` },
-  { id: 'sinead-g', name: 'Sinead Galligan', time: '4 months ago', tags: ['house'],
-    text: `Would highly recommend Ciprian! Himself & his colleague did an excellent job on a house clearance recently. They were extremely thorough, professional & efficient. They arrived promptly & there was good communication with Ciprian who was easy to contact. A job well done.` },
-  { id: 'dave', name: 'dave hamilton', time: '3 months ago', tags: ['bereavement'],
-    text: `We got Ciprian in to do a bereavement house clearance and I couldn't recommend him higher. They made what was really a difficult experience for us so much easier and Ciprian was a gentleman throughout and very understanding of what we were…` },
-  { id: 'fiona', name: 'Fiona White', time: 'a month ago', tags: ['house'],
-    text: `An excellent service! Ciprian arrived promptly and worked flat out with his team until the house was clear. It really was a job well done and a big relief for me. Thank you Ciprian.` },
-  { id: 'sinead-j', name: 'Sinead James', time: '2 months ago', tags: ['shed','house'],
-    text: `Ciprian and the team did a fantastic job clearing our full house plus our shed in a day and a half. They were very professional, clean and so quick. I highly recommend these guys.` },
-  { id: 'denis', name: 'Denis Nolan', time: '2 months ago', tags: ['bereavement'],
-    text: `Ciprian and Brian and Willie were great. They cleared out our mom's house after she passed away last year. Professional, organized, empathetic and resourceful. It was a job we were dreading but they did it quickly with no fuss. I've never made an effort to make a recommendation online but Ciprian exceeded expectations.` },
-  { id: 'brian', name: 'Brian Plumley', time: '4 months ago', tags: ['house'],
-    text: `Ciprian was a pleasure to work with and he and his crew worked exceptionally hard to clear my dad's house. I am very pleased with the service and the results. Two thumbs up and I would recommend them to anyone.` },
-  { id: 'star-sign', name: 'Star Sign', time: '6 months ago', tags: ['house'],
-    text: `Absolutely a top job100% completed by Ciprian's company. 2 bed cottage in Dublin cleared out of all old contents and cleaned, in one and a half days.. promp replies and answers to questions, highly recommend this company.` },
-  { id: 'marie-walsh', name: 'Marie Walsh', time: '6 months ago', tags: ['attic','shed'],
-    text: `We were looking for somebody to clear out the attic and dismantle a large shed in bad condition. During an Internet search I found Ciprians company. I got in contact and he was there in a couple of days. Himself and his crew did a brilliant…` },
-  { id: 'robbie', name: "Robbie O'Donoghue", time: '4 months ago', tags: ['house'],
-    text: `I cannot recommend Ciprian and his team enough!! Courteous, professional, exceptionally hard-working and meticulous. Jovial, considerate, and laser-focussed on their clients' needs and objectives, Ciprian is as reliable as he is a "master…` },
-  { id: 'shane', name: 'Shane Curran', time: 'a month ago', tags: ['house'],
-    text: `Absolutely delighted with the work from Ciprian today... it was a big job for one large room... it looks amazing now with the beds and clutter gone. Thanks again.` },
-  { id: 'richard', name: 'Richard Case', time: '5 months ago', tags: ['house'],
-    text: `Ciprian and the team at Krystal Klean did a great job clearing out the house, they were very polite, arrived on time and took the headache away from my family having to do the clear out, would highly recommend the service` },
-  { id: 'eileen', name: 'Eileen Dooley', time: '3 months ago', tags: ['shed','house'],
-    text: `Got to say Ciprian was fast and thorough. He found rubbish in a shed we'd forgotten about - and offered to take that too - no extra charge. Highly recommend` },
-  { id: 'patricia', name: 'Patricia Charles', time: '5 months ago', tags: ['bereavement'],
-    text: `Following the sad passing of our mother, Ciprian and his team cleared her property with kind, efficient sensitivity that made the process very easy. Very grateful for the good work and would highly recommend them.` },
-  { id: 'paul', name: 'Paul Kinsella', time: '5 months ago', tags: ['house'],
-    text: `Ciprian, Brian and team did an amazing job on a full house clearance for me. Can't recommend them highly enough - professional in all aspects.` },
-  { id: 'siobhan', name: 'Siobhan Devlin', time: '11 months ago', tags: ['hoarder','attic'],
-    text: `Thanks so much to Krystal Klean Express Limited who made a daunting task manageable. We had to clear out our grandparents' house, who were hoarders… with artefacts from the early 1900's! There was excellent communication from the first…` },
+  { id: "lucinda", name: "Lucinda Gallwey", time: "3 months ago", tags: ["bereavement","apartment"],
+    text: "Ciprian and his team were so sympathetic and efficient when I contacted them to help clear out the apartment after a bereavement. The came and were very respectful in clearing completely everything, rubbish, books,  clothes, kitchen, living room, bedroom in the apartment and left it spotless. The clearence took a lot of stress off me. I highly recommend them.\n\nLucinda" },
+  { id: "marian", name: "Marian", time: "10 months ago", tags: ["attic"],
+    text: "I found Ciprians company on a Google search as I needed help with a very cluttered attic. I liked that the website said he would allow sorting and keeping on the day as I was as hoping to find items not seen for a long time. All other companies stressed that items to be kept needed to be removed before the visit.\nI have added a photo of the cover Ciprian put on the stair carpet. He also cleans carpets and wears all his hats on every job.\nHis helper was unavailable but Ciprian did the job excellently on his own. Again I was given time to check before every bag was removed to his truck.\nHe reused my vacuum bags to gather loose items in the attic and removed everything including loose wood left left by previous workmen doing flooring.\nI did not need anything put back into the attic as Ciprian had offered as it was to be left empty for another company who will install shelving etc\nExcellent communication via WhatsApp prior to the day and very polite.\nReasonable price for the work involved..\nThank you.." },
+  { id: "irene", name: "Irene Whelan", time: "3 months ago", tags: ["house"],
+    text: "I highly recommend Ciprian and his team. From my first contact to booking, everything was handled professionally and efficiently.\n\nThey carried out a complete house clearance for us and did an excellent job. The team was friendly, reliable, and always available to answer any questions. They arrived on time, completed the work efficiently, and left the property spotless.\n\nI would happily recommend this company to anyone looking for a professional and dependable service." },
+  { id: "kay", name: "Kay Waldron", time: "3 months ago", tags: ["bereavement","house"],
+    text: "Excellent service clearing a full house following a bereavement. Ciprian and crew were professional, highly efficient with good communication and completed the job within two days as promised. Their fees were very reasonable and there were no hidden charges. Did exactly as they were asked to do with honesty and integrity. Would highly recommend." },
+  { id: "sinead-g", name: "Sinead Galligan", time: "5 months ago", tags: ["house"],
+    text: "Would highly recommend Ciprian! Himself & his colleague did an excellent job on a house clearance recently. They were extremely thorough, professional & efficient. They arrived promptly & there was good communication with Ciprian who was easy to contact. A job well done." },
+  { id: "dave", name: "dave hamilton", time: "5 months ago", tags: ["bereavement"],
+    text: "We got Ciprian in to do a bereavement house clearance and I couldn't recommend him higher. They made what was really a difficult experience for us so much easier and Ciprian was a gentleman throughout and very understanding of what we were going through. Also it was very refreshing these days to see someone operating his business in a very transparent and honest way and the job they did was top class and left the house spotless afterwards." },
+  { id: "fiona", name: "Fiona White", time: "2 months ago", tags: ["house"],
+    text: "An excellent service! Ciprian arrived promptly and worked flat out with his team until the house was clear. It really was a job well done and a big relief for me. Thank you Ciprian." },
+  { id: "sinead-j", name: "Sinead James", time: "3 months ago", tags: ["shed","house"],
+    text: "Ciprian and the team did a fantastic job clearing our full house plus our shed in a day and a half. They were very professional, clean and so quick. I highly recommend these guys.⭐⭐⭐⭐⭐" },
+  { id: "denis", name: "Denis Nolan", time: "4 months ago", tags: ["bereavement"],
+    text: "Ciprian and Brian and Willie were great. They cleared out our mom's house after she passed away last year. Professional, organized, empathetic and resourceful. It was a job we were dreading but they did it quickly with no fuss. I've never made an effort to make a recommendation online but Ciprian exceeded expectations." },
+  { id: "brian", name: "Brian Plumley", time: "5 months ago", tags: ["house"],
+    text: "Ciprian was a pleasure to work with and he and his crew worked exceptionally hard to clear my dad's house. I am very pleased with the service and the results. Two thumbs up and I would recommend them to anyone." },
+  { id: "star-sign", name: "Star Sign", time: "7 months ago", tags: ["house"],
+    text: "Absolutely a top job100% completed by Ciprian’s company. 2 bed cottage in Dublin cleared out of all old contents and cleaned,in one and a half days.. promp replies and answers to questions, highly recommend this company." },
+  { id: "marie-walsh", name: "Marie Walsh", time: "8 months ago", tags: ["attic","shed"],
+    text: "We were looking for somebody to clear out the attic and dismantle a large shed in bad condition. During an Internet search I found Ciprians company.i got in contact and he was there in a couple of days.himself and his crew did a brilliant job clearing the attic and shed sorting everything letting us see if we wanted anything to keep.i would highly recommend this company." },
+  { id: "robbie", name: "Robbie O'Donoghue", time: "6 months ago", tags: ["house"],
+    text: "I cannot recommend Ciprian and his team enough!! Courteous, professional, exceptionally hard-working and meticulous. Jovial, considerate, and laser-focussed on their clients’ needs and objectives, Ciprian is as reliable as he is a “master of his trade”. Will be my go-to for anything of this nature again.\n\nFrom first contact over email, to final agreement of Costs at the completion of the work, the value offered by Ciprian is second-to-none. Thank you Ciprian and Willy!" },
+  { id: "shane", name: "Shane Curran", time: "2 months ago", tags: ["house"],
+    text: "Absolutely delighted with the work from Ciprian today... it was a big job for one large room... it looks amazing now with the beds and clutter gone. Thanks again." },
+  { id: "richard", name: "Richard Case", time: "7 months ago", tags: ["house"],
+    text: "Ciprian and the team at Krystal Klean did a great job clearing out the house, they were very polite, arrived on time and took the headache away from my family having to do the clear out, would highly recommend the service" },
+  { id: "eileen", name: "Eileen Dooley", time: "5 months ago", tags: ["shed","house"],
+    text: "Got to say Ciprian was fast and thorough. Hw\nHe found rubbish in a shed we’d forgotten about - and offered to take that too - no extra charge. Highly recommend" },
+  { id: "patricia", name: "Patricia Charles", time: "6 months ago", tags: ["bereavement"],
+    text: "Following the sad passing of our mother, Cyprian and his team cleared her property with kin efficient sensitivity that made the process very easy. Very grateful for the good work and would highly recommend them." },
+  { id: "paul", name: "Paul Kinsella", time: "7 months ago", tags: ["house"],
+    text: "Ciprian Brian and team did an amazing job on a full house clearance for me. Can’t recommend them highly enough - professional in all aspects." },
+  { id: "siobhan", name: "Siobhan Devlin", time: "a year ago", tags: ["hoarder","attic"],
+    text: "Thanks so much to Krystal Klean express Limited who made a daunting task manageable. We had to clear out our grandparents house, who were hoarders… With artefacts from the early 1900’s! There was excellent communication from the first inquiry to the days before the job itself and afterwards to check on our satisfaction . The lads were punctual, hard-working, good humoured, respectful of the family history and dynamics, and we’re not perturbed by any of the wildlife or vintage alcohol found in the house! Although the job was bigger than they originally anticipated, they were quick to adapt their plans and kept to the original quote. Job done in a day and a half! It would have taken our family weeks to do! 100% recommend!" },
 ];
+
+function reviewHtml(text) {
+  return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>');
+}
 
 function starRow() {
   return `<span class="stars" aria-hidden="true">★★★★★</span>`;
@@ -157,7 +162,7 @@ function reviewCard(r) {
         ${starRow()}<span class="review-time">${r.time}</span>
       </div>
     </div>
-    <p class="review-text">${r.text}</p>
+    <p class="review-text">${reviewHtml(r.text)}</p>
   </div>`;
 }
 
@@ -455,7 +460,7 @@ function featuredReviews(html) {
   return html.replace(/<!-- \[REVIEWS-FEATURED:([a-z0-9,-]+)\] -->/g, (m, ids) => {
     const cards = ids.split(',').map(id => REVIEWS.find(r => r.id === id)).filter(Boolean).map(r => `<figure class="bv-review">
     <div class="bv-review-stars" aria-hidden="true">★★★★★</div>
-    <blockquote>${r.text}</blockquote>
+    <blockquote>${reviewHtml(r.text)}</blockquote>
     <figcaption><strong>${r.name}</strong> &middot; Google review, ${r.time}</figcaption>
   </figure>`).join('\n  ');
     return `<div class="bv-review-grid">\n  ${cards}\n</div>`;
