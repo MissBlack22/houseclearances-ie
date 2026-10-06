@@ -14,7 +14,7 @@ const WA_BEREAVEMENT_LINK = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponen
 // URL is rewritten in the built HTML, so new content (e.g. the daily blog routine) can never link to an
 // old URL even if it still uses it. Pages merged into another page are listed separately in build().
 const URL_MOVES = {
-  '/bereavement-clearance/': '/bereavement-clearance-dublin/',   // 2026-10-06 SEO migration
+  '/bereavement-clearance-dublin/': '/blog/bereavement-clearance-dublin/',   // live for a few hours on 2026-10-06; content moved to the blog
 };
 function rewriteMovedLinks(html) {
   for (const [from, to] of Object.entries(URL_MOVES)) {
@@ -86,7 +86,7 @@ const NAV_SERVICES = [
   ['Storage Unit Clearance', '/storage-unit-clearance/'],
   ['Warehouse Clearance', '/warehouse-clearance/'],
   ['Hoarder Clearance', '/hoarder-clearance/'],
-  ['Bereavement Clearance', '/bereavement-clearance-dublin/'],
+  ['Bereavement Clearance', '/bereavement-clearance/'],
   ['Office Clearance', '/office-clearance/'],
   ['End of Tenancy Clearance', '/end-of-tenancy-clearance/'],
   ['Garden Waste Clearance', '/garden-waste-clearance/'],
@@ -382,7 +382,7 @@ const KNOWN_VIDEOS = {
     uploadDate: '2025-10-20T13:49:02-07:00',
     duration: 'PT8S'
   },
-  // Owner's own channel Shorts used on /bereavement-clearance-dublin/. Names, dates and durations taken from
+  // Owner's own channel Shorts used on /blog/bereavement-clearance-dublin/. Names, dates and durations taken from
   // the YouTube watch pages on 2026-10-06; descriptions describe what each clip actually shows.
   '73EzFwEPuS0': {
     name: 'House Clearance Dublin | House Clear Out Dublin | Hoarder Clearance | Beaverement Clearance |',
@@ -474,7 +474,7 @@ function fillTokens(html) {
 // Organisation / LocalBusiness / WebSite — home page only. Deliberately contains NO rating or
 // review markup. Address is locality-level only (Athy, Co. Kildare, as stated on the operator's
 // sibling site propertyclearance.ie); no street address is published for this brand.
-const ORG_SCHEMA_PAGES = new Set(['/', '/bereavement-clearance-dublin/']);
+const ORG_SCHEMA_PAGES = new Set(['/']);
 function buildOrgSchema(meta) {
   if (!ORG_SCHEMA_PAGES.has(meta.slug)) return '';
   const graph = [
@@ -767,7 +767,8 @@ const G = {
 const RELATED = {
   '/house-clearance/': ['choose', 'clHouse', 'cost', 'moving'],
   '/apartment-clearance/': ['clApt', 'clLand', 'choose'],
-  '/bereavement-clearance-dublin/': ['family', 'clBer', 'exec', 'probate'],
+  '/bereavement-clearance/': ['family', 'clBer', 'exec', 'probate'],
+  '/blog/bereavement-clearance-dublin/': ['family', 'clBer', 'exec', 'probate'],
   '/hoarder-clearance/': ['hoard', 'choose', 'clHouse'],
   '/end-of-tenancy-clearance/': ['clLand', 'prop', 'clApt'],
   '/attic-clearance/': ['attic', 'moving', 'clHouse'],
@@ -856,9 +857,7 @@ function build() {
   // Services
   const svcDir = path.join(ROOT, 'services');
   const SERVICE_REVIEW_TAGS = {
-    // Bereavement reviews are featured near the top of that page; this block adds other genuine
-    // reviews from families clearing a parent's or relative's home, so nothing is shown twice.
-    '/bereavement-clearance-dublin/': [null, 'More From Families We\'ve Helped', { ids: ['brian', 'richard', 'star-sign', 'sinead-j', 'marie-walsh', 'marian'] }],
+    '/bereavement-clearance/': ['bereavement', 'For Families Dealing with a Bereavement'],
     '/attic-clearance/': ['attic', 'What Attic Clearance Customers Say'],
     '/shed-clearance/': ['shed', 'What Shed Clearance Customers Say'],
     '/house-clearance/': ['house', 'What Our House Clearance Customers Say'],
@@ -892,14 +891,16 @@ function build() {
     for (const file of fs.readdirSync(blogDir).filter(f => f.endsWith('.html'))) {
       const frag = parseFragment(fs.readFileSync(path.join(blogDir, file), 'utf8'));
       posts.push(frag.meta);
-      const crumb = `<a href="/">Home</a> &rsaquo; <a href="/blog/">Blog</a> &rsaquo; ${frag.meta.h1}`;
-      const heroImg = frag.meta.image
+      const crumb = `<a href="/">Home</a> &rsaquo; <a href="/blog/">Blog</a> &rsaquo; ${frag.meta.crumb || frag.meta.h1}`;
+      const wide = frag.meta.layout === 'wide';
+      const heroImg = !wide && frag.meta.image
         ? `<img class="hero-photo" src="/images/${frag.meta.image}" alt="${frag.meta.imageAlt || frag.meta.h1}" loading="lazy">`
         : '';
       const dateLine = frag.meta.date
         ? `<p class="blog-post-date">${formatBlogDate(frag.meta.date)}</p>`
         : '';
-      const bodyWithExtras = (frag.body + relatedBlock(frag.meta.slug)).replace(/(<h1>.*?<\/h1>)/, `$1\n${dateLine}\n${heroImg}`);
+      const moreReviews = wide ? '\n' + reviewsSection(null, 'More From Families We\'ve Helped', false, { ids: ['brian', 'richard', 'star-sign', 'sinead-j', 'marie-walsh', 'marian'] }) : '';
+      const bodyWithExtras = (frag.body + relatedBlock(frag.meta.slug) + moreReviews).replace(/(<h1>.*?<\/h1>)/, `$1\n${dateLine}\n${heroImg}`);
       writePage(frag.meta.slug, page(frag.meta, bodyWithExtras, crumb), frag.meta.modified || frag.meta.date);
     }
   }

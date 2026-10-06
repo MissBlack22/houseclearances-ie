@@ -47,7 +47,7 @@ approved/privacy-screened pool in site-assets/images/; no medical claims in hoar
 15. What to Do With a Storage Unit You've Genuinely Forgotten About (cluster post, link to
     /storage-unit-clearance/)
 16. What Happens to a Deceased Relative's Storage Unit (cluster post bridging bereavement +
-    storage — link to /bereavement-clearance-dublin/ and /storage-unit-clearance/)
+    storage — link to /bereavement-clearance/ and /storage-unit-clearance/)
 17. The Difference Between Junk Removal and House Clearance
 18. What Counts as Bulky Waste in Dublin (And What Doesn't)
 19. How Much Does Furniture Removal Cost in Dublin? (cost-factors only, no invented prices)
