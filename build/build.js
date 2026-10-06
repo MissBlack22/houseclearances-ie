@@ -325,7 +325,7 @@ function buildArticleSchema(meta, shareUrl) {
     "@type": "BlogPosting",
     "headline": meta.h1 || meta.title,
     "description": meta.description,
-    "image": `https://houseclearances.ie/images/${meta.image || 'van-exterior-hero.jpg'}`,
+    "image": `https://houseclearances.ie/images/${meta.image || 'brand/og-default.jpg'}`,
     "datePublished": meta.date,
     "dateModified": meta.modified || meta.date,
     "author": { "@type": "Organization", "name": "HouseClearances.ie" },
@@ -385,6 +385,8 @@ function buildOrgSchema(meta) {
       "url": "https://houseclearances.ie/",
       "telephone": "+353830904545",
       "email": "info@houseclearances.ie",
+      "logo": "https://houseclearances.ie/images/brand/icon-192.png",
+      "image": "https://houseclearances.ie/images/brand/og-default.jpg",
       "description": "House, apartment, garage, shed, attic, storage and commercial clearance across Dublin and Leinster. Fully insured, authorised waste carrier.",
       "address": { "@type": "PostalAddress", "addressLocality": "Athy", "addressRegion": "County Kildare", "addressCountry": "IE" },
       "areaServed": ["Dublin", "County Kildare", "County Wicklow", "County Kilkenny", "County Carlow"].map(n => ({ "@type": "AdministrativeArea", "name": n })),
@@ -510,7 +512,8 @@ function page(meta, body, breadcrumb) {
     </form>
   </div>${QUOTE_PHOTO_SCRIPT}`;
   const bodyWithForm = addImageDimensions(prioritiseHeroImage(body.replace(/<!-- \[CONTACT FORM PLACEHOLDER\] -->/g, formHtml)));
-  const shareImage = meta.image || 'van-exterior-hero.jpg';
+  // Pages without their own photo share the branded card (owner van photo + logo, 1200x630).
+  const shareImage = meta.image || 'brand/og-default.jpg';
   const shareUrl = `https://houseclearances.ie${meta.slug}`;
   // Schema built from `body` (pre-form-injection) so the FAQ extractor never sees the
   // quote form's own "Request a Free Quote" <h3>.
@@ -528,7 +531,13 @@ function page(meta, body, breadcrumb) {
 <title>${meta.title}</title>
 <meta name="description" content="${meta.description}">
 <link rel="canonical" href="${shareUrl}">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/images/brand/apple-touch-icon.png">
+<meta name="theme-color" content="#102A43">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap">
 <meta property="og:type" content="${meta.ogtype || (meta.slug && meta.slug.startsWith('/blog/') && meta.date ? 'article' : 'website')}">
 <meta property="og:site_name" content="HouseClearances.ie">
 <meta property="og:title" content="${meta.h1 || meta.title}">
@@ -550,8 +559,8 @@ ${videoSchema}
 <body>
 <header class="site-header">
   <div class="header-inner">
-    <a href="/" class="logo">
-      <span class="logo-house">House</span><span class="logo-clearances">Clearances</span><span class="logo-ie">.ie</span>
+    <a href="/" class="logo" aria-label="HouseClearances.ie home">
+      <img src="/images/brand/logo-header.svg" alt="HouseClearances.ie" width="263" height="46">
     </a>
     <nav class="main-nav">
       <div class="nav-dropdown">
@@ -597,11 +606,10 @@ ${bodyWithForm}
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-col">
-      <div class="logo footer-logo">
-        <span class="logo-house">House</span><span class="logo-clearances">Clearances</span><span class="logo-ie">.ie</span>
+      <div class="footer-logo">
+        <img src="/images/brand/logo-white.svg" alt="HouseClearances.ie: clear, remove, recycle" width="260" height="43" loading="lazy">
       </div>
       <p>Fully insured house, apartment, garage, shed, attic, storage and warehouse clearance across Dublin &amp; Leinster.</p>
-      <p class="footer-tagline">CLEAR &bull; REMOVE &bull; RECYCLE</p>
       <div class="footer-trust">
         <span>✔ Fully insured</span>
         <span>✔ Experienced crews</span>
@@ -703,10 +711,10 @@ function build() {
   // Shared assets
   fs.copyFileSync(path.join(ROOT, 'site-assets', 'style.css'), path.join(SITE, 'style.css'));
   fs.copyFileSync(path.join(ROOT, 'site-assets', 'favicon.svg'), path.join(SITE, 'favicon.svg'));
+  fs.copyFileSync(path.join(ROOT, 'site-assets', 'favicon.ico'), path.join(SITE, 'favicon.ico'));
   const imgSrc = path.join(ROOT, 'site-assets', 'images');
   const imgDst = path.join(SITE, 'images');
-  fs.mkdirSync(imgDst, { recursive: true });
-  for (const f of fs.readdirSync(imgSrc)) fs.copyFileSync(path.join(imgSrc, f), path.join(imgDst, f));
+  fs.cpSync(imgSrc, imgDst, { recursive: true }); // includes images/brand/
 
   const dlSrc = path.join(ROOT, 'site-assets', 'downloads');
   if (fs.existsSync(dlSrc)) {
@@ -764,7 +772,7 @@ function build() {
     const frag = parseFragment(fs.readFileSync(path.join(locDir, file), 'utf8'));
     const townName = frag.meta.h1.replace('House Clearance in ', '');
     const crumb = `<a href="/">Home</a> &rsaquo; <a href="/locations/">Areas We Cover</a> &rsaquo; ${townName}`;
-    const heroImg = `<img class="hero-photo" src="/images/van-exterior-hero.jpg" alt="A HouseClearances.ie clearance van loaded during a recent job" loading="lazy">`;
+    const heroImg = `<img class="hero-photo" src="/images/house-clearance-van-dublin.jpg" alt="The HouseClearances.ie van with its tail lift down, loading furniture during a clearance" loading="lazy">`;
     const bodyWithImg = frag.body.replace(/(<h1>.*?<\/h1>)/, `$1\n${heroImg}`) + '\n' + gallerySection() + '\n' + reviewsSection(null, 'What Our Customers Say', false, { n: 3, seed: frag.meta.slug });
     writePage(frag.meta.slug, page(frag.meta, bodyWithImg, crumb));
     locCount++;

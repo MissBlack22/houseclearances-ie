@@ -1,16 +1,18 @@
-/* HouseClearances.ie — brand: navy + green, matching the logo (house/recycling mark) */
+/* HouseClearances.ie brand (owner brand pack, Oct 2026; see brand/BRAND_GUIDELINES.md):
+   Deep Navy = authority/navigation, Recycling Green = CTAs, Accent Orange = highlights. */
 :root {
-  --navy: #0f2a4a;
-  --navy-dark: #0a1d33;
-  --green: #3fa13a;
-  --green-dark: #2f8a2b;
-  --cream: #f7f8f6;
-  --text: #1c2b3a;
-  --text-muted: #5b6b7a;
-  --border: #e2e6e9;
+  --navy: #102A43;
+  --navy-dark: #0B1E30;
+  --green: #2E7D32;
+  --green-dark: #1F5E24;
+  --orange: #F59E0B;
+  --cream: #F7F8F5;
+  --text: #17212B;
+  --text-muted: #667085;
+  --border: #D9E0E6;
   --white: #ffffff;
-  --font-heading: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-  --font-body: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  --font-heading: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -27,6 +29,7 @@ a { color: var(--green-dark); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
 h1, h2, h3 { font-family: var(--font-heading); color: var(--navy); line-height: 1.25; }
+h1, h2 { font-weight: 800; letter-spacing: -0.01em; }
 h1 { font-size: 2.25rem; margin: 0 0 1rem; }
 h2 { font-size: 1.6rem; margin: 2.5rem 0 1rem; border-bottom: 3px solid var(--green); padding-bottom: 0.4rem; display: inline-block; }
 h3 { font-size: 1.2rem; margin: 1.75rem 0 0.6rem; color: var(--navy); }
@@ -51,7 +54,8 @@ li { margin-bottom: 0.5rem; }
   justify-content: space-between;
   gap: 24px;
 }
-.logo { font-family: var(--font-heading); font-weight: 800; font-size: 1.35rem; white-space: nowrap; }
+.logo { display: inline-flex; align-items: center; flex-shrink: 0; line-height: 0; }
+.logo img { height: 46px; width: auto; display: block; }
 .logo-house { color: var(--navy); }
 .logo-clearances { color: var(--green); }
 .logo-ie { color: var(--navy); }
@@ -271,7 +275,7 @@ li { margin-bottom: 0.5rem; }
 
 /* ===== Reviews ===== */
 .reviews-section { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
-.stars, .stars-big { color: #f5a623; letter-spacing: 1px; }
+.stars, .stars-big { color: var(--orange); letter-spacing: 1px; }
 .stars-big { font-size: 1.4rem; }
 .reviews-summary { display: flex; align-items: center; gap: 8px; margin-bottom: 1.25rem; font-size: 1.05rem; color: var(--text); }
 .reviews-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
@@ -335,7 +339,8 @@ li { margin-bottom: 0.5rem; }
 .footer-col a:hover { color: var(--white); text-decoration: none; }
 .footer-col p { color: #a9bdd0; font-size: 0.9rem; }
 .footer-hours { display: block; color: #a9bdd0; font-size: 0.85rem; margin-top: 8px; }
-.footer-logo { margin-bottom: 12px; }
+.footer-logo { margin-bottom: 14px; line-height: 0; }
+.footer-logo img { width: 260px; max-width: 100%; height: auto; display: block; }
 .footer-logo .logo-house, .footer-logo .logo-ie { color: var(--white); }
 .footer-tagline { color: var(--green); font-weight: 700; letter-spacing: 0.5px; font-size: 0.85rem; }
 .footer-trust { display: flex; flex-direction: column; gap: 4px; margin: 14px 0; }
@@ -478,7 +483,7 @@ li { margin-bottom: 0.5rem; }
 /* Phones: logo + Menu + number don't fit on one line, so the call button becomes icon-only
    (the number stays in the link text for screen readers, and in the floating buttons). */
 @media (max-width: 480px) {
-  .logo { font-size: 1.2rem; }
+  .logo img { height: 34px; }
   .header-cta { font-size: 0; gap: 0; padding: 10px; }
   .header-cta svg { width: 18px; height: 18px; }
 }
@@ -508,3 +513,9 @@ li { margin-bottom: 0.5rem; }
 /* WebP <picture> wrappers must not change layout: the <img> stays the flex/grid item. */
 picture { display: contents; }
 picture > source { display: none; }
+
+/* Tablets: logo + full nav + phone button need ~930px, so use the compact Menu below 960px. */
+@media (max-width: 960px) {
+  .main-nav { display: none; }
+  .mobile-nav { display: block; margin-left: auto; }
+}
