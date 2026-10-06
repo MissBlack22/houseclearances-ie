@@ -8,6 +8,21 @@ const ROOT = path.join(__dirname, '..');
 const SITE = path.join(ROOT, 'site');
 const WA_NUMBER = '353830904545';
 const WA_PHOTO_LINK = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent("Hi, I'd like a clearance quote. Photos of the property are attached. Area: ")}`;
+const WA_BEREAVEMENT_LINK = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent("Hi, I'd like a quote for a bereavement house clearance. I'll send photos or a short video of the property. Area: ")}`;
+
+// Permanent URL moves. Each entry becomes a 301 in site/_redirects AND every internal link to the old
+// URL is rewritten in the built HTML, so new content (e.g. the daily blog routine) can never link to an
+// old URL even if it still uses it. Pages merged into another page are listed separately in build().
+const URL_MOVES = {
+  '/bereavement-clearance/': '/bereavement-clearance-dublin/',   // 2026-10-06 SEO migration
+};
+function rewriteMovedLinks(html) {
+  for (const [from, to] of Object.entries(URL_MOVES)) {
+    html = html.split(`href="${from}"`).join(`href="${to}"`)
+               .split(`href="https://houseclearances.ie${from}"`).join(`href="https://houseclearances.ie${to}"`);
+  }
+  return html;
+}
 
 // ---- Image dimensions (reads JPEG/PNG headers; no dependencies) -------------------------
 // Adds width/height to every <img src="/images/..."> so the browser can reserve space
@@ -49,6 +64,11 @@ function addImageDimensions(html) {
       if (d) img = `<img${attrs} width="${d[0]}" height="${d[1]}">`;
     }
     if (!fs.existsSync(path.join(IMG_DIR, `${src[1]}.webp`))) return img;
+    const d = imgSize(`${src[1]}.${src[2]}`);
+    if (d && fs.existsSync(path.join(IMG_DIR, `${src[1]}-800.webp`))) {
+      const small = Math.round(d[0] * 800 / Math.max(d[0], d[1]));
+      return `<picture><source type="image/webp" srcset="/images/${src[1]}-800.webp ${small}w, /images/${src[1]}.webp ${d[0]}w" sizes="(max-width: 860px) 100vw, 760px">${img}</picture>`;
+    }
     return `<picture><source srcset="/images/${src[1]}.webp" type="image/webp">${img}</picture>`;
   });
 }
@@ -66,7 +86,7 @@ const NAV_SERVICES = [
   ['Storage Unit Clearance', '/storage-unit-clearance/'],
   ['Warehouse Clearance', '/warehouse-clearance/'],
   ['Hoarder Clearance', '/hoarder-clearance/'],
-  ['Bereavement Clearance', '/bereavement-clearance/'],
+  ['Bereavement Clearance', '/bereavement-clearance-dublin/'],
   ['Office Clearance', '/office-clearance/'],
   ['End of Tenancy Clearance', '/end-of-tenancy-clearance/'],
   ['Garden Waste Clearance', '/garden-waste-clearance/'],
@@ -239,6 +259,8 @@ function parseFragment(raw) {
     meta.excerpt = grab('EXCERPT');
     meta.modified = grab('MODIFIED');
     meta.ogtype = grab('OG TYPE');
+    meta.crumb = grab('BREADCRUMB');
+    meta.layout = grab('LAYOUT');
   }
   const body = raw.slice(commentMatch ? commentMatch.index + commentMatch[0].length : 0).trim();
   const h1Match = body.match(/<h1>(.*?)<\/h1>/);
@@ -263,7 +285,7 @@ function buildFaqSchema(bodyHtml) {
   const faqStart = bodyHtml.indexOf('Frequently Asked Questions');
   if (faqStart === -1) return '';
   const faqSection = bodyHtml.slice(faqStart);
-  const pairs = [...faqSection.matchAll(/<h3>(.*?)<\/h3>\s*<p>([\s\S]*?)<\/p>/g)];
+  const pairs = [...faqSection.matchAll(/<h3>(.*?)<\/h3>\s*(?:<\/summary>\s*)?<p>([\s\S]*?)<\/p>/g)];
   if (pairs.length < 2) return '';
   const mainEntity = pairs.map(([, q, a]) => ({
     "@type": "Question",
@@ -302,9 +324,11 @@ function buildServiceSchema(meta, shareUrl) {
   return `<script type="application/ld+json">${JSON.stringify({
     "@context": "https://schema.org",
     "@type": "Service",
-    "serviceType": meta.h1,
+    "serviceType": meta.crumb || meta.h1,
     "name": meta.h1,
+    "description": meta.description,
     "url": shareUrl,
+    ...(meta.image ? { "image": `https://houseclearances.ie/images/${meta.image}` } : {}),
     "areaServed": ["Dublin", "Kildare", "Wicklow", "Kilkenny", "Carlow"],
     "provider": {
       "@type": "LocalBusiness",
@@ -352,12 +376,51 @@ const KNOWN_VIDEOS = {
     thumbnailUrl: 'https://i.ytimg.com/vi/bsG3-0IcAzo/hqdefault.jpg',
     uploadDate: '2025-10-20T13:49:02-07:00',
     duration: 'PT8S'
+  },
+  // Owner's own channel Shorts used on /bereavement-clearance-dublin/. Names, dates and durations taken from
+  // the YouTube watch pages on 2026-10-06; descriptions describe what each clip actually shows.
+  '73EzFwEPuS0': {
+    name: 'House Clearance Dublin | House Clear Out Dublin | Hoarder Clearance | Beaverement Clearance |',
+    description: 'A short clip of the clearance team clearing the rooms of a house in Dublin.',
+    thumbnailUrl: 'https://i.ytimg.com/vi/73EzFwEPuS0/oardefault.jpg',
+    uploadDate: '2025-11-06T23:20:51-08:00',
+    duration: 'PT35S'
+  },
+  'TzbNZZTGtrg': {
+    name: 'House Clearance Dublin | 085 202 1222 | Krystal Klean Express',
+    description: 'A short clip of a bedroom and wardrobe being emptied during a house clearance in Dublin.',
+    thumbnailUrl: 'https://i.ytimg.com/vi/TzbNZZTGtrg/oardefault.jpg',
+    uploadDate: '2025-02-21T13:49:33-08:00',
+    duration: 'PT20S'
+  },
+  'U-vCrisylvo': {
+    name: 'House Clearance Dublin | Krystal Klean Express | Property Clearance Dublin | 085 202 1222 |',
+    description: 'A short clip of the clearance van being loaded with household contents during a property clearance in Dublin.',
+    thumbnailUrl: 'https://i.ytimg.com/vi/U-vCrisylvo/oardefault.jpg',
+    uploadDate: '2025-11-06T23:12:01-08:00',
+    duration: 'PT17S'
+  },
+  '9xtf1ERZbnA': {
+    name: 'Attic Clearance Dublin | Krystal Klean Express | 085 202 1222 |',
+    description: 'A short clip of an attic being cleared in Dublin.',
+    thumbnailUrl: 'https://i.ytimg.com/vi/9xtf1ERZbnA/oardefault.jpg',
+    uploadDate: '2025-11-06T23:14:29-08:00',
+    duration: 'PT18S'
+  },
+  'EBCNLXjsl1o': {
+    name: 'Shed clearance Dublin | Shed clear out Dublin | Junk Removal Dublin',
+    description: 'A short clip of a garden shed being emptied in Dublin.',
+    thumbnailUrl: 'https://i.ytimg.com/vi/EBCNLXjsl1o/oardefault.jpg',
+    uploadDate: '2025-11-03T14:45:40-08:00',
+    duration: 'PT38S'
   }
 };
 function buildVideoSchema(bodyHtml) {
-  const m = bodyHtml.match(/data-video-id="([a-zA-Z0-9_-]+)"/);
-  const v = m && KNOWN_VIDEOS[m[1]];
-  if (!v) return '';
+  const ids = [...new Set([...bodyHtml.matchAll(/data-video-id="([a-zA-Z0-9_-]+)"/g)].map(x => x[1]))]
+    .filter(id => KNOWN_VIDEOS[id]);
+  return ids.map(id => videoObject(id, KNOWN_VIDEOS[id])).join('\n');
+}
+function videoObject(id, v) {
   return `<script type="application/ld+json">${JSON.stringify({
     "@context": "https://schema.org",
     "@type": "VideoObject",
@@ -366,16 +429,49 @@ function buildVideoSchema(bodyHtml) {
     "thumbnailUrl": v.thumbnailUrl,
     "uploadDate": v.uploadDate,
     "duration": v.duration,
-    "embedUrl": `https://www.youtube.com/embed/${m[1]}`,
-    "contentUrl": `https://www.youtube.com/watch?v=${m[1]}`
+    "embedUrl": `https://www.youtube.com/embed/${id}`,
+    "contentUrl": `https://www.youtube.com/watch?v=${id}`
   })}</script>`;
+}
+
+// Tap-to-play YouTube: the page ships only a small self-hosted thumbnail; the YouTube player (and its
+// cookies/scripts) load only when the visitor taps. Uses youtube-nocookie.com.
+const YT_FACADE_SCRIPT = `<script>
+document.addEventListener('click', function (e) {
+  var b = e.target.closest('.yt-facade'); if (!b) return;
+  var id = b.getAttribute('data-video-id');
+  var f = document.createElement('iframe');
+  f.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&playsinline=1&rel=0';
+  f.title = b.getAttribute('aria-label') || 'Video';
+  f.allow = 'accelerometer; autoplay; encrypted-media; picture-in-picture';
+  f.allowFullscreen = true;
+  f.className = 'yt-frame';
+  b.replaceWith(f);
+});
+</script>`;
+
+// Featured review cards (verbatim from REVIEWS) for <!-- [REVIEWS-FEATURED:id,id,...] -->
+function featuredReviews(html) {
+  return html.replace(/<!-- \[REVIEWS-FEATURED:([a-z0-9,-]+)\] -->/g, (m, ids) => {
+    const cards = ids.split(',').map(id => REVIEWS.find(r => r.id === id)).filter(Boolean).map(r => `<figure class="bv-review">
+    <div class="bv-review-stars" aria-hidden="true">★★★★★</div>
+    <blockquote>${r.text}</blockquote>
+    <figcaption><strong>${r.name}</strong> &middot; Google review, ${r.time}</figcaption>
+  </figure>`).join('\n  ');
+    return `<div class="bv-review-grid">\n  ${cards}\n</div>`;
+  });
+}
+function fillTokens(html) {
+  return html.split('{{GBP_RATING}}').join(GBP_RATING).split('{{GBP_COUNT}}').join(String(GBP_COUNT))
+    .split('{{GBP_URL}}').join(GBP_URL).split('{{WA_BEREAVEMENT}}').join(WA_BEREAVEMENT_LINK).split('{{WA_LINK}}').join(WA_PHOTO_LINK);
 }
 
 // Organisation / LocalBusiness / WebSite — home page only. Deliberately contains NO rating or
 // review markup. Address is locality-level only (Athy, Co. Kildare, as stated on the operator's
 // sibling site propertyclearance.ie); no street address is published for this brand.
+const ORG_SCHEMA_PAGES = new Set(['/', '/bereavement-clearance-dublin/']);
 function buildOrgSchema(meta) {
-  if (meta.slug !== '/') return '';
+  if (!ORG_SCHEMA_PAGES.has(meta.slug)) return '';
   const graph = [
     {
       "@type": ["LocalBusiness", "ProfessionalService"],
@@ -399,7 +495,7 @@ function buildOrgSchema(meta) {
       "name": "HouseClearances.ie",
       "publisher": { "@id": "https://houseclearances.ie/#business" }
     }
-  ];
+  ].filter(n => meta.slug === '/' || n["@type"] !== 'WebSite');
   return `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": graph })}</script>`;
 }
 
@@ -511,7 +607,9 @@ function page(meta, body, breadcrumb) {
       <button type="submit">Get My Free Quote</button>
     </form>
   </div>${QUOTE_PHOTO_SCRIPT}`;
-  const bodyWithForm = addImageDimensions(prioritiseHeroImage(body.replace(/<!-- \[CONTACT FORM PLACEHOLDER\] -->/g, formHtml)));
+  body = fillTokens(featuredReviews(body));
+  const bodyWithForm = rewriteMovedLinks(addImageDimensions(prioritiseHeroImage(body.replace(/<!-- \[CONTACT FORM PLACEHOLDER\] -->/g, formHtml))))
+    + (body.includes('yt-facade') ? YT_FACADE_SCRIPT : '');
   // Pages without their own photo share the branded card (owner van photo + logo, 1200x630).
   const shareImage = meta.image || 'brand/og-default.jpg';
   const shareUrl = `https://houseclearances.ie${meta.slug}`;
@@ -664,7 +762,7 @@ const G = {
 const RELATED = {
   '/house-clearance/': ['choose', 'clHouse', 'cost', 'moving'],
   '/apartment-clearance/': ['clApt', 'clLand', 'choose'],
-  '/bereavement-clearance/': ['family', 'clBer', 'exec', 'probate'],
+  '/bereavement-clearance-dublin/': ['family', 'clBer', 'exec', 'probate'],
   '/hoarder-clearance/': ['hoard', 'choose', 'clHouse'],
   '/end-of-tenancy-clearance/': ['clLand', 'prop', 'clApt'],
   '/attic-clearance/': ['attic', 'moving', 'clHouse'],
@@ -726,6 +824,7 @@ function build() {
   // source files are kept in archive/merged-2026-10/ for reference. _redirects is processed before
   // the netlify.toml 404 catch-all.
   fs.writeFileSync(path.join(SITE, '_redirects'), [
+    ...Object.entries(URL_MOVES).flatMap(([from, to]) => [`${from}  ${to}  301`, `${from.replace(/\/$/, '')}  ${to}  301`]),
     '/storage-clearance-dublin/  /storage-unit-clearance/  301',
     '/storage-clearance-dublin   /storage-unit-clearance/  301',
     '/blog/clearing-hoarders-home-guide-for-families/  /blog/hoarder-clearance-dublin/  301',
@@ -752,17 +851,20 @@ function build() {
   // Services
   const svcDir = path.join(ROOT, 'services');
   const SERVICE_REVIEW_TAGS = {
-    '/bereavement-clearance/': ['bereavement', 'For Families Dealing with a Bereavement'],
+    // Bereavement reviews are featured near the top of that page; this block adds other genuine
+    // reviews from families clearing a parent's or relative's home, so nothing is shown twice.
+    '/bereavement-clearance-dublin/': [null, 'More From Families We\'ve Helped', { ids: ['brian', 'richard', 'star-sign', 'sinead-j', 'marie-walsh', 'marian'] }],
     '/attic-clearance/': ['attic', 'What Attic Clearance Customers Say'],
     '/shed-clearance/': ['shed', 'What Shed Clearance Customers Say'],
     '/house-clearance/': ['house', 'What Our House Clearance Customers Say'],
   };
   for (const file of fs.readdirSync(svcDir)) {
     const frag = parseFragment(fs.readFileSync(path.join(svcDir, file), 'utf8'));
-    const crumb = `<a href="/">Home</a> &rsaquo; ${frag.meta.h1}`;
+    const crumb = `<a href="/">Home</a> &rsaquo; ${frag.meta.crumb || frag.meta.h1}`;
     const svcTag = SERVICE_REVIEW_TAGS[frag.meta.slug];
-    const extra = svcTag ? reviewsSection(svcTag[0], svcTag[1], false) : reviewsSection(null, 'What Our Customers Say', false);
-    writePage(frag.meta.slug, page(frag.meta, frag.body + relatedBlock(frag.meta.slug) + '\n' + gallerySection() + '\n' + extra, crumb));
+    const extra = svcTag ? reviewsSection(svcTag[0], svcTag[1], false, svcTag[2] || {}) : reviewsSection(null, 'What Our Customers Say', false);
+    const gallery = frag.meta.layout === 'wide' ? '' : '\n' + gallerySection();
+    writePage(frag.meta.slug, page(frag.meta, frag.body + relatedBlock(frag.meta.slug) + gallery + '\n' + extra, crumb));
   }
 
   // Locations
