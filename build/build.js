@@ -567,6 +567,21 @@ const QUOTE_PHOTO_SCRIPT = `
 })();
 </script>`;
 
+// "We do not collect paint" badge (owner-approved 2026-10-22). webp + png fallback, fixed size so it
+// cannot shift layout. Built after addImageDimensions so that function does not re-wrap it.
+const BADGE_CAPTION = 'We do not collect paint, solvents, oils or chemicals';
+function noPaintBadge(variant) {
+  return `<div class="no-paint-badge no-paint-badge--${variant}"><picture><source type="image/webp" srcset="/images/we-do-not-collect-paint-480.webp 480w, /images/we-do-not-collect-paint-800.webp 800w" sizes="200px"><img src="/images/we-do-not-collect-paint-480.png" alt="${BADGE_CAPTION}" width="480" height="480" loading="lazy"></picture><p>${BADGE_CAPTION}</p></div>`;
+}
+// Pages that carry the in-content badge (via the [NO-PAINT-BADGE] token) do not also get the form-area one.
+// Blog posts get neither (owner rule).
+function applyBadges(html, slug) {
+  const inContent = html.includes('<!-- [NO-PAINT-BADGE] -->');
+  html = html.replace('<!-- [NO-PAINT-BADGE] -->', noPaintBadge('inline'));
+  const skipForm = inContent || (slug && slug.startsWith('/blog/'));
+  return html.replace('<!--FORM-BADGE-->', skipForm ? '' : noPaintBadge('form'));
+}
+
 function page(meta, body, breadcrumb) {
   const photoCta = `
   <div class="photo-quote">
@@ -577,7 +592,7 @@ function page(meta, body, breadcrumb) {
       <a class="btn-call" href="tel:+353830904545">Call 083 090 4545</a>
     </p>
   </div>`;
-  const formHtml = photoCta + `
+  const formHtml = photoCta + `<!--FORM-BADGE-->
   <div class="quote-form" id="quote-form">
     <h3>Request a Free Quote</h3>
     <form name="quote-request" method="POST" action="/thank-you/" enctype="multipart/form-data" data-netlify="true" netlify-honeypot="bot-field">
@@ -613,7 +628,7 @@ function page(meta, body, breadcrumb) {
     </form>
   </div>${QUOTE_PHOTO_SCRIPT}`;
   body = fillTokens(featuredReviews(body));
-  const bodyWithForm = rewriteMovedLinks(addImageDimensions(prioritiseHeroImage(body.replace(/<!-- \[CONTACT FORM PLACEHOLDER\] -->/g, formHtml))))
+  const bodyWithForm = applyBadges(rewriteMovedLinks(addImageDimensions(prioritiseHeroImage(body.replace(/<!-- \[CONTACT FORM PLACEHOLDER\] -->/g, formHtml)))), meta.slug)
     + (body.includes('yt-facade') ? YT_FACADE_SCRIPT : '');
   // Pages without their own photo share the branded card (owner van photo + logo, 1200x630).
   const shareImage = meta.image || 'brand/og-default.jpg';

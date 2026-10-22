@@ -640,3 +640,15 @@ picture > source { display: none; }
   .bv-photo-pair img { height: 240px; }
   .bv-hero-photo { height: 220px; }
 }
+
+/* ===== "We do not collect paint" badge ===== */
+.no-paint-badge { display: flex; align-items: center; gap: 18px; margin: 24px 0; padding: 14px 18px; background: var(--cream); border: 1px solid var(--border); border-radius: 12px; }
+.no-paint-badge picture { display: block; flex: 0 0 auto; }
+.no-paint-badge img { display: block; width: 180px; height: 180px; max-width: 100%; }
+.no-paint-badge p { margin: 0; font-weight: 600; color: var(--navy); }
+.no-paint-badge--inline { max-width: 560px; }
+@media (max-width: 480px) {
+  .no-paint-badge { flex-direction: column; text-align: center; gap: 8px; }
+  .no-paint-badge img { width: 160px; height: 160px; }
+}
+@media print { .no-paint-badge { break-inside: avoid; } }
