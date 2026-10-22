@@ -491,7 +491,7 @@ function buildOrgSchema(meta) {
       "description": "House, apartment, garage, shed, attic, storage and commercial clearance across Dublin and Leinster. Fully insured, authorised waste carrier.",
       "address": { "@type": "PostalAddress", "addressLocality": "Athy", "addressRegion": "County Kildare", "addressCountry": "IE" },
       "areaServed": ["Dublin", "County Kildare", "County Wicklow", "County Kilkenny", "County Carlow"].map(n => ({ "@type": "AdministrativeArea", "name": n })),
-      "openingHoursSpecification": [{ "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "07:00", "closes": "20:00" }]
+      "openingHoursSpecification": [{ "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "08:00", "closes": "17:00" }]
     },
     {
       "@type": "WebSite",
@@ -733,7 +733,7 @@ ${bodyWithForm}
       <a href="tel:+353598652981">Phone: 059 865 2981</a>
       <a href="${WA_PHOTO_LINK}" target="_blank" rel="noopener">Send Photos on WhatsApp</a>
       <a href="mailto:info@houseclearances.ie">info@houseclearances.ie</a>
-      <span class="footer-hours">Mon&ndash;Sat: 7am &ndash; 8pm</span>
+      <span class="footer-hours">Mon&ndash;Sat: 8am &ndash; 5pm</span>
     </div>
   </div>
   <div class="footer-bottom">
