@@ -794,6 +794,10 @@ const RELATED = {
   '/blog/bereavement-clearance-athy/': ['exec', 'clBer', 'family'],
   '/blog/bereavement-clearance-carlow-town/': ['probate', 'clBer', 'exec'],
   '/blog/house-clearance-tullow-guide/': ['clHouse', 'choose', 'moving'],
+  '/blog/house-clearance-kildare-town-parent-into-care/': ['family', 'clHouse', 'choose'],
+  '/blog/house-clearance-monasterevin-vacant-house/': ['probate', 'clHouse', 'choose'],
+  '/blog/bereavement-clearance-bagenalstown/': ['exec', 'clBer', 'family'],
+  '/blog/house-clearance-kilcullen-before-renovation/': ['clHouse', 'cost', 'choose'],
 };
 function relatedBlock(slug) {
   const keys = RELATED[slug];
