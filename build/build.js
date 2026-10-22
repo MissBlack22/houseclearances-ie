@@ -790,6 +790,10 @@ const RELATED = {
   '/blog/how-to-choose-a-house-clearance-company-ireland/': ['clHouse'],
   '/blog/moving-house-what-to-clear-before-you-move/': ['clMove'],
   '/blog/clearing-a-loved-ones-home-after-a-death-dublin/': ['clBer'],
+  '/blog/house-clearance-newbridge-guide/': ['clHouse', 'choose', 'cost'],
+  '/blog/bereavement-clearance-athy/': ['exec', 'clBer', 'family'],
+  '/blog/bereavement-clearance-carlow-town/': ['probate', 'clBer', 'exec'],
+  '/blog/house-clearance-tullow-guide/': ['clHouse', 'choose', 'moving'],
 };
 function relatedBlock(slug) {
   const keys = RELATED[slug];
