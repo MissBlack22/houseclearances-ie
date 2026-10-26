@@ -570,8 +570,13 @@ const QUOTE_PHOTO_SCRIPT = `
 // "We do not collect paint" badge (owner-approved 2026-10-22). webp + png fallback, fixed size so it
 // cannot shift layout. Built after addImageDimensions so that function does not re-wrap it.
 const BADGE_CAPTION = 'We do not collect paint, solvents, oils or chemicals';
+const PIANO_CAPTION = 'We do collect pianos';
+function badgeItem(name, caption) {
+  return `<div class="badge-item"><picture><source type="image/webp" srcset="/images/${name}-480.webp 480w, /images/${name}-800.webp 800w" sizes="200px"><img src="/images/${name}-480.png" alt="${caption}" width="480" height="480" loading="lazy"></picture><p>${caption}</p></div>`;
+}
+// Paint badge and "we do collect pianos" badge shown side by side (owner request 2026-10-26).
 function noPaintBadge(variant) {
-  return `<div class="no-paint-badge no-paint-badge--${variant}"><picture><source type="image/webp" srcset="/images/we-do-not-collect-paint-480.webp 480w, /images/we-do-not-collect-paint-800.webp 800w" sizes="200px"><img src="/images/we-do-not-collect-paint-480.png" alt="${BADGE_CAPTION}" width="480" height="480" loading="lazy"></picture><p>${BADGE_CAPTION}</p></div>`;
+  return `<div class="no-paint-badge badge-pair-card no-paint-badge--${variant}">${badgeItem('we-do-not-collect-paint', BADGE_CAPTION)}${badgeItem('we-do-collect-pianos', PIANO_CAPTION)}</div>`;
 }
 // Pages that carry the in-content badge (via the [NO-PAINT-BADGE] token) do not also get the form-area one.
 // Blog posts get neither (owner rule).
