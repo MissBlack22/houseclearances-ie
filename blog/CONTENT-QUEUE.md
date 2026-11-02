@@ -1,6 +1,7 @@
 # Blog Content Queue
 
-Published (26): WEEE rules and what happens to old electronics during a clearance,
+Published (27): full vs partial house clearance — what's the difference,
+WEEE rules and what happens to old electronics during a clearance,
 what happens to old paperwork and documents during a clearance,
 do you need to be home during a house clearance,
 skip hire alternative, clearing before probate, man-and-van vs clearance company,
@@ -31,25 +32,24 @@ Next up, in order — one per automation run. Each should follow the same rules 
 this site: no fabricated reviews, stats, credentials or landmarks; real photos only from the
 approved/privacy-screened pool in site-assets/images/; no medical claims in hoarder content.
 
-1. Full vs Partial House Clearance: What's the Difference?
-2. DIY House Clearance vs Hiring a Professional: What It Actually Costs You
-3. Clearing an Apartment Before Handing Back the Keys
-4. A Landlord's Guide to Clearing a Commercial Unit Before a Lease Ends
-5. Autumn Garden Clearance: Getting Ahead of Leaf Fall and Cutbacks
-6. House Clearance in Maynooth: A Local Guide (Kildare)
-7. House Clearance in Greystones: A Local Guide (Wicklow)
-8. What to Do With an Old Piano Nobody Wants
-9. What Actually Happens to Recyclable Materials After a House Clearance
-10. Storage Unit vs House Clearance: Which Do You Actually Need? (cluster post, link to
+1. DIY House Clearance vs Hiring a Professional: What It Actually Costs You
+2. Clearing an Apartment Before Handing Back the Keys
+3. A Landlord's Guide to Clearing a Commercial Unit Before a Lease Ends
+4. Autumn Garden Clearance: Getting Ahead of Leaf Fall and Cutbacks
+5. House Clearance in Maynooth: A Local Guide (Kildare)
+6. House Clearance in Greystones: A Local Guide (Wicklow)
+7. What to Do With an Old Piano Nobody Wants
+8. What Actually Happens to Recyclable Materials After a House Clearance
+9. Storage Unit vs House Clearance: Which Do You Actually Need? (cluster post, link to
     /storage-unit-clearance/)
-11. How to Prepare a Storage Unit for Clearance: A Quick Checklist (cluster post, link to
+10. How to Prepare a Storage Unit for Clearance: A Quick Checklist (cluster post, link to
     /storage-unit-clearance/)
-12. What to Do With a Storage Unit You've Genuinely Forgotten About (cluster post, link to
+11. What to Do With a Storage Unit You've Genuinely Forgotten About (cluster post, link to
     /storage-unit-clearance/)
-13. What Happens to a Deceased Relative's Storage Unit (cluster post bridging bereavement +
+12. What Happens to a Deceased Relative's Storage Unit (cluster post bridging bereavement +
     storage — link to /bereavement-clearance/ and /storage-unit-clearance/)
-14. The Difference Between Junk Removal and House Clearance
-15. What Counts as Bulky Waste in Dublin (And What Doesn't)
-16. How Much Does Furniture Removal Cost in Dublin? (cost-factors only, no invented prices)
-17. House Clearance in Malahide: A Local Guide (Fingal, coastal)
-18. House Clearance in Dundrum: A Local Guide (South Dublin)
+13. The Difference Between Junk Removal and House Clearance
+14. What Counts as Bulky Waste in Dublin (And What Doesn't)
+15. How Much Does Furniture Removal Cost in Dublin? (cost-factors only, no invented prices)
+16. House Clearance in Malahide: A Local Guide (Fingal, coastal)
+17. House Clearance in Dundrum: A Local Guide (South Dublin)
