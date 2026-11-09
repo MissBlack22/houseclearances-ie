@@ -783,10 +783,13 @@ const G = {
   clApt:   ['Apartment clearance checklist (lifts, stairs, parking)', '/checklists/apartment-clearance-checklist/'],
   storage: ['When a storage unit costs more than it is worth', '/blog/storage-unit-costing-more-than-worth/'],
   attic:   ["What's usually worth keeping from an attic", '/blog/attic-clearance-what-to-keep/'],
+  greyBer: ['Bereavement clearance in Greystones: a timeline from the funeral to the sale', '/blog/bereavement-clearance-greystones/'],
+  brayApt: ['Apartment clearance in Bray: end of tenancy, estates and handing back the keys', '/blog/apartment-clearance-bray/'],
+  portSat: ['House clearance in Portlaoise when you can only be there on a Saturday', '/blog/house-clearance-portlaoise-saturday-plan/'],
 };
 const RELATED = {
   '/house-clearance/': ['choose', 'clHouse', 'cost', 'moving'],
-  '/apartment-clearance/': ['clApt', 'clLand', 'choose'],
+  '/apartment-clearance/': ['clApt', 'clLand', 'choose', 'brayApt'],
   '/bereavement-clearance/': ['family', 'clBer', 'exec', 'probate'],
   '/blog/bereavement-clearance-dublin/': ['family', 'clBer', 'exec', 'probate'],
   '/hoarder-clearance/': ['hoard', 'choose', 'clHouse'],
@@ -801,10 +804,10 @@ const RELATED = {
   '/blog/downsizing-what-to-keep-sell-donate-clear/': ['moving', 'clMove'],
   '/blog/old-sofa-cant-sell/': ['moving'],
   '/blog/house-clearance-swords-guide/': ['clHouse', 'choose'],
-  '/blog/house-clearance-bray-guide/': ['clHouse', 'choose'],
+  '/blog/house-clearance-bray-guide/': ['clHouse', 'choose', 'brayApt'],
   '/blog/house-clearance-naas-guide/': ['clHouse', 'choose'],
   '/blog/preparing-rental-property-new-tenants/': ['clLand'],
-  '/blog/what-to-do-when-someone-dies-in-ireland/': ['family', 'clBer'],
+  '/blog/what-to-do-when-someone-dies-in-ireland/': ['family', 'clBer', 'greyBer'],
   '/blog/can-you-clear-house-before-probate/': ['family', 'clBer'],
   '/blog/clearing-deceased-relative-business-office/': ['family'],
   '/blog/how-to-choose-a-house-clearance-company-ireland/': ['clHouse'],
@@ -818,6 +821,11 @@ const RELATED = {
   '/blog/house-clearance-monasterevin-vacant-house/': ['probate', 'clHouse', 'choose'],
   '/blog/bereavement-clearance-bagenalstown/': ['exec', 'clBer', 'family'],
   '/blog/house-clearance-kilcullen-before-renovation/': ['clHouse', 'cost', 'choose'],
+  '/blog/how-to-clear-an-apartment-dublin/': ['brayApt', 'clApt'],
+  '/blog/do-you-need-to-be-home-during-a-house-clearance/': ['portSat', 'clHouse'],
+  '/blog/bereavement-clearance-greystones/': ['exec', 'clBer', 'probate', 'family'],
+  '/blog/apartment-clearance-bray/': ['clApt', 'clLand', 'choose'],
+  '/blog/house-clearance-portlaoise-saturday-plan/': ['clHouse', 'choose', 'cost'],
 };
 function relatedBlock(slug) {
   const keys = RELATED[slug];

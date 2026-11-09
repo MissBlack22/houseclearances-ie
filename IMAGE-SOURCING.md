@@ -51,6 +51,14 @@ a generic, respectful house-interior or team/van photo (from the general pool ab
 than anything that could look like it depicts an actual hoarding situation or a specific
 bereaved family's home.
 
+## Owner-supplied job photos added 2026-11-09 (in `site-assets/images/`, jpg + webp + -800.webp)
+- `apartment-living-room-before-and-after-clearance` — genuine job photo supplied by the owner 2026-11-09; a
+  composite of two genuine photos of the same apartment living room (before and after the clearance). Privacy-screened.
+  No location in the filename or alt text; caption it as "an apartment living room", nothing more specific.
+- `clearance-truck-redbrick-street-dublin` — genuine job photo supplied by the owner 2026-11-09; our box truck with the
+  tail lift down on a redbrick residential street in Dublin. Privacy-screened. Alt/caption may say "Dublin" (that is
+  where it was taken) but must not be captioned as any other town.
+
 ## Technical optimisation still needed (once a CMS exists)
 - Rename files to descriptive, keyword-relevant filenames (many are currently
   `WhatsApp-Image-2026-07-13-at-17.58.55-8.jpeg` style — meaningless for SEO).
