@@ -1,6 +1,12 @@
 # Blog Content Queue
 
-Published (34): bereavement clearance in Kilkenny — farmhouses, outbuildings and a lifetime of tools (local,
+Published (37): hoarder clearance in Carlow — helping someone agree to a first clearance (local, Carlow; page layout,
+partial clearance of hall, stairs, kitchen and bathroom with the occupant staying; links the hoarder pillar and the service page),
+apartment clearance in Newbridge — flats over shops and small blocks with no lift (local, Kildare; page layout; stairs, rear lanes,
+loading on a busy street, no management company),
+house clearance in Portarlington — bungalows, attics, garages and sheds (local, Laois/Offaly border; page layout; takes the place
+of the former queue item "House Clearance in Portarlington: A Local Guide"),
+bereavement clearance in Kilkenny — farmhouses, outbuildings and a lifetime of tools (local,
 rural Co. Kilkenny: sheds, machinery, oil tanks and fuel we do not take, documents in odd places, farm-lane access),
 clearing an empty house over the winter — heating, damp, short days and the order of work (informational,
 executors/families inheriting a house in November–February; links the executor checklist, probate guide,
@@ -52,21 +58,20 @@ Do not re-add Maynooth, Malahide or Dundrum guides here.
 
 1. A Landlord's Guide to Clearing a Commercial Unit Before a Lease Ends
 2. Autumn Garden Clearance: Getting Ahead of Leaf Fall and Cutbacks
-3. House Clearance in Portarlington: A Local Guide (Laois/Offaly border)
-4. What to Do With an Old Piano Nobody Wants
-5. What Actually Happens to Recyclable Materials After a House Clearance
-6. Storage Unit vs House Clearance: Which Do You Actually Need? (cluster post, link to
+3. What to Do With an Old Piano Nobody Wants
+4. What Actually Happens to Recyclable Materials After a House Clearance
+5. Storage Unit vs House Clearance: Which Do You Actually Need? (cluster post, link to
     /storage-unit-clearance/)
-7. How to Prepare a Storage Unit for Clearance: A Quick Checklist (cluster post, link to
+6. How to Prepare a Storage Unit for Clearance: A Quick Checklist (cluster post, link to
     /storage-unit-clearance/)
-8. What to Do With a Storage Unit You've Genuinely Forgotten About (cluster post, link to
+7. What to Do With a Storage Unit You've Genuinely Forgotten About (cluster post, link to
     /storage-unit-clearance/)
-9. What Happens to a Deceased Relative's Storage Unit (cluster post bridging bereavement +
+8. What Happens to a Deceased Relative's Storage Unit (cluster post bridging bereavement +
     storage — link to /bereavement-clearance/ and /storage-unit-clearance/)
-10. The Difference Between Junk Removal and House Clearance
-11. What Counts as Bulky Waste in Dublin (And What Doesn't)
-12. How Much Does Furniture Removal Cost in Dublin? (cost-factors only, no invented prices)
-13. House Clearance in Carlow Town for Landlords Between Tenants (local, Carlow; link
+9. The Difference Between Junk Removal and House Clearance
+10. What Counts as Bulky Waste in Dublin (And What Doesn't)
+11. How Much Does Furniture Removal Cost in Dublin? (cost-factors only, no invented prices)
+12. House Clearance in Carlow Town for Landlords Between Tenants (local, Carlow; link
     /end-of-tenancy-clearance/ and the landlord checklist)
-14. Storage Unit Clearance in Kilkenny: Ending a Unit Paid For Since a Bereavement (local, Kilkenny; bridges
+13. Storage Unit Clearance in Kilkenny: Ending a Unit Paid For Since a Bereavement (local, Kilkenny; bridges
     bereavement + storage — link /storage-unit-clearance/ and /bereavement-clearance/)

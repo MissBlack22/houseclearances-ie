@@ -789,13 +789,16 @@ const G = {
   kilkFarm: ['Bereavement clearance in Kilkenny: farmhouses, outbuildings and a lifetime of tools', '/blog/bereavement-clearance-kilkenny-farmhouses-and-outbuildings/'],
   winter:  ['Clearing an empty house over the winter: heating, damp, short days and the order of work', '/blog/clearing-an-empty-house-over-the-winter/'],
   wickQuote: ['House clearance in Wicklow Town and Arklow: getting a quote right first time from photos', '/blog/house-clearance-wicklow-town-arklow/'],
+  carlowHoard: ['Hoarder clearance in Carlow: helping someone agree to a first clearance', '/blog/hoarder-clearance-carlow/'],
+  newbApt: ['Apartment clearance in Newbridge: flats over shops and small blocks with no lift', '/blog/apartment-clearance-newbridge/'],
+  portBung: ['House clearance in Portarlington: bungalows, attics, garages and sheds', '/blog/house-clearance-portarlington/'],
 };
 const RELATED = {
-  '/house-clearance/': ['choose', 'clHouse', 'cost', 'moving', 'wickQuote'],
-  '/apartment-clearance/': ['clApt', 'clLand', 'choose', 'brayApt'],
+  '/house-clearance/': ['choose', 'clHouse', 'cost', 'moving', 'wickQuote', 'portBung'],
+  '/apartment-clearance/': ['clApt', 'clLand', 'choose', 'brayApt', 'newbApt'],
   '/bereavement-clearance/': ['family', 'clBer', 'exec', 'probate', 'winter'],
   '/blog/bereavement-clearance-dublin/': ['family', 'clBer', 'exec', 'probate'],
-  '/hoarder-clearance/': ['hoard', 'choose', 'clHouse'],
+  '/hoarder-clearance/': ['hoard', 'choose', 'clHouse', 'carlowHoard'],
   '/end-of-tenancy-clearance/': ['clLand', 'prop', 'clApt'],
   '/attic-clearance/': ['attic', 'moving', 'clHouse'],
   '/garage-clearance/': ['moving', 'clHouse', 'kilkFarm'],
@@ -832,6 +835,9 @@ const RELATED = {
   '/blog/bereavement-clearance-kilkenny-farmhouses-and-outbuildings/': ['exec', 'clBer', 'probate', 'winter'],
   '/blog/clearing-an-empty-house-over-the-winter/': ['exec', 'probate', 'greyBer', 'clBer'],
   '/blog/house-clearance-wicklow-town-arklow/': ['clHouse', 'portSat', 'cost', 'choose'],
+  '/blog/hoarder-clearance-carlow/': ['hoard', 'clHouse', 'choose', 'cost'],
+  '/blog/apartment-clearance-newbridge/': ['clApt', 'brayApt', 'clLand', 'choose'],
+  '/blog/house-clearance-portarlington/': ['portSat', 'clHouse', 'cost', 'attic'],
 };
 function relatedBlock(slug) {
   const keys = RELATED[slug];
