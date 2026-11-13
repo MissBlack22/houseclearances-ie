@@ -792,6 +792,9 @@ const G = {
   carlowHoard: ['Hoarder clearance in Carlow: helping someone agree to a first clearance', '/blog/hoarder-clearance-carlow/'],
   newbApt: ['Apartment clearance in Newbridge: flats over shops and small blocks with no lift', '/blog/apartment-clearance-newbridge/'],
   portBung: ['House clearance in Portarlington: bungalows, attics, garages and sheds', '/blog/house-clearance-portarlington/'],
+  foxGarage: ["Garage clearance in Foxrock: when the garage holds the whole family's things", '/blog/garage-clearance-foxrock/'],
+  foxAttic: ['Attic clearance in Foxrock: bring it down first, decide downstairs', '/blog/attic-clearance-foxrock/'],
+  killAttic: ['Attic clearance in Killiney: so a parent never has to climb the ladder again', '/blog/attic-clearance-killiney/'],
 };
 const RELATED = {
   '/house-clearance/': ['choose', 'clHouse', 'cost', 'moving', 'wickQuote', 'portBung'],
@@ -800,8 +803,8 @@ const RELATED = {
   '/blog/bereavement-clearance-dublin/': ['family', 'clBer', 'exec', 'probate'],
   '/hoarder-clearance/': ['hoard', 'choose', 'clHouse', 'carlowHoard'],
   '/end-of-tenancy-clearance/': ['clLand', 'prop', 'clApt'],
-  '/attic-clearance/': ['attic', 'moving', 'clHouse'],
-  '/garage-clearance/': ['moving', 'clHouse', 'kilkFarm'],
+  '/attic-clearance/': ['attic', 'moving', 'clHouse', 'foxAttic', 'killAttic'],
+  '/garage-clearance/': ['moving', 'clHouse', 'kilkFarm', 'foxGarage'],
   '/shed-clearance/': ['moving', 'clHouse', 'kilkFarm'],
   '/storage-unit-clearance/': ['storage', 'moving'],
   '/blog/man-and-van-vs-clearance-company/': ['choose'],
@@ -838,6 +841,9 @@ const RELATED = {
   '/blog/hoarder-clearance-carlow/': ['hoard', 'clHouse', 'choose', 'cost'],
   '/blog/apartment-clearance-newbridge/': ['clApt', 'brayApt', 'clLand', 'choose'],
   '/blog/house-clearance-portarlington/': ['portSat', 'clHouse', 'cost', 'attic'],
+  '/blog/garage-clearance-foxrock/': ['foxAttic', 'moving', 'clHouse', 'cost'],
+  '/blog/attic-clearance-foxrock/': ['attic', 'foxGarage', 'clHouse', 'cost'],
+  '/blog/attic-clearance-killiney/': ['attic', 'foxAttic', 'clHouse', 'choose'],
 };
 function relatedBlock(slug) {
   const keys = RELATED[slug];
