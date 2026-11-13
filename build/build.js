@@ -282,6 +282,14 @@ function stripTags(s) {
   return s.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
 }
 
+// Text placed inside a double-quoted HTML attribute. A straight double quote in a page's
+// META DESCRIPTION (e.g. Searching "house clearance near me"?) used to end the attribute
+// early, so search engines read a cut-off description. Only the quote is escaped, so
+// entities already in the text (&amp;, &#039;) are left exactly as written.
+function attr(s) {
+  return String(s == null ? '' : s).replace(/"/g, '&quot;');
+}
+
 // FAQPage schema — only from the genuine, visible FAQ section (after the "Frequently Asked
 // Questions" heading), so it can never accidentally pick up unrelated <h3>/<p> markup
 // elsewhere on the page (e.g. the quote form's heading or blog index cards) and always
@@ -652,7 +660,7 @@ function page(meta, body, breadcrumb) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${meta.title}</title>
-<meta name="description" content="${meta.description}">
+<meta name="description" content="${attr(meta.description)}">
 <link rel="canonical" href="${shareUrl}">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -663,13 +671,13 @@ function page(meta, body, breadcrumb) {
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap">
 <meta property="og:type" content="${meta.ogtype || (meta.slug && meta.slug.startsWith('/blog/') && meta.date ? 'article' : 'website')}">
 <meta property="og:site_name" content="HouseClearances.ie">
-<meta property="og:title" content="${meta.h1 || meta.title}">
-<meta property="og:description" content="${meta.description}">
+<meta property="og:title" content="${attr(meta.h1 || meta.title)}">
+<meta property="og:description" content="${attr(meta.description)}">
 <meta property="og:url" content="${shareUrl}">
 <meta property="og:image" content="https://houseclearances.ie/images/${shareImage}">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="${meta.h1 || meta.title}">
-<meta name="twitter:description" content="${meta.description}">
+<meta name="twitter:title" content="${attr(meta.h1 || meta.title)}">
+<meta name="twitter:description" content="${attr(meta.description)}">
 <meta name="twitter:image" content="https://houseclearances.ie/images/${shareImage}">
 <link rel="stylesheet" href="/style.css">
 ${buildOrgSchema(meta)}
@@ -795,9 +803,10 @@ const G = {
   foxGarage: ["Garage clearance in Foxrock: when the garage holds the whole family's things", '/blog/garage-clearance-foxrock/'],
   foxAttic: ['Attic clearance in Foxrock: bring it down first, decide downstairs', '/blog/attic-clearance-foxrock/'],
   killAttic: ['Attic clearance in Killiney: so a parent never has to climb the ladder again', '/blog/attic-clearance-killiney/'],
+  ireland: ['House clearance in Ireland: what to expect and which areas we cover', '/blog/house-clearance-ireland/'],
 };
 const RELATED = {
-  '/house-clearance/': ['choose', 'clHouse', 'cost', 'moving', 'wickQuote', 'portBung'],
+  '/house-clearance/': ['choose', 'clHouse', 'cost', 'moving', 'wickQuote', 'portBung', 'ireland'],
   '/apartment-clearance/': ['clApt', 'clLand', 'choose', 'brayApt', 'newbApt'],
   '/bereavement-clearance/': ['family', 'clBer', 'exec', 'probate', 'winter'],
   '/blog/bereavement-clearance-dublin/': ['family', 'clBer', 'exec', 'probate'],
@@ -819,7 +828,7 @@ const RELATED = {
   '/blog/what-to-do-when-someone-dies-in-ireland/': ['family', 'clBer', 'greyBer', 'winter'],
   '/blog/can-you-clear-house-before-probate/': ['family', 'clBer', 'winter'],
   '/blog/clearing-deceased-relative-business-office/': ['family'],
-  '/blog/how-to-choose-a-house-clearance-company-ireland/': ['clHouse'],
+  '/blog/how-to-choose-a-house-clearance-company-ireland/': ['clHouse', 'ireland'],
   '/blog/moving-house-what-to-clear-before-you-move/': ['clMove'],
   '/blog/clearing-a-loved-ones-home-after-a-death-dublin/': ['clBer'],
   '/blog/house-clearance-newbridge-guide/': ['clHouse', 'choose', 'cost'],
