@@ -584,7 +584,7 @@ function badgeItem(name, caption) {
 }
 // Paint badge and "we do collect pianos" badge shown side by side (owner request 2026-10-26).
 function noPaintBadge(variant) {
-  return `<div class="no-paint-badge badge-pair-card no-paint-badge--${variant}">${badgeItem('we-do-not-collect-paint', BADGE_CAPTION)}${badgeItem('we-do-collect-pianos', PIANO_CAPTION)}</div>`;
+  return `<div class="no-paint-badge badge-pair-card no-paint-badge--${variant}">${badgeItem('we-do-not-collect-paint', BADGE_CAPTION)}${badgeItem('we-do-collect-pianos', PIANO_CAPTION)}${badgeItem('we-do-not-handle-asbestos', 'We do not handle asbestos or clinical waste')}</div>`;
 }
 // Pages that carry the in-content badge (via the [NO-PAINT-BADGE] token) do not also get the form-area one.
 // Blog posts get neither (owner rule).
