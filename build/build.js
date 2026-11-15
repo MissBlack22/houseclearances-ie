@@ -803,6 +803,9 @@ const G = {
   foxGarage: ["Garage clearance in Foxrock: when the garage holds the whole family's things", '/blog/garage-clearance-foxrock/'],
   foxAttic: ['Attic clearance in Foxrock: bring it down first, decide downstairs', '/blog/attic-clearance-foxrock/'],
   killAttic: ['Attic clearance in Killiney: so a parent never has to climb the ladder again', '/blog/attic-clearance-killiney/'],
+  foxShed: ["Shed clearance in Foxrock: a gardener's shed, and what the family keeps", '/blog/shed-clearance-foxrock/'],
+  foxStorage: ['Storage unit clearance in Foxrock: after the move to a smaller home', '/blog/storage-unit-clearance-foxrock/'],
+  killStorage: ['Storage unit clearance in Killiney: closing a unit when you live abroad', '/blog/storage-unit-clearance-killiney/'],
   ireland: ['House clearance in Ireland: what to expect and which areas we cover', '/blog/house-clearance-ireland/'],
 };
 const RELATED = {
@@ -814,8 +817,8 @@ const RELATED = {
   '/end-of-tenancy-clearance/': ['clLand', 'prop', 'clApt'],
   '/attic-clearance/': ['attic', 'moving', 'clHouse', 'foxAttic', 'killAttic'],
   '/garage-clearance/': ['moving', 'clHouse', 'kilkFarm', 'foxGarage'],
-  '/shed-clearance/': ['moving', 'clHouse', 'kilkFarm'],
-  '/storage-unit-clearance/': ['storage', 'moving'],
+  '/shed-clearance/': ['moving', 'clHouse', 'kilkFarm', 'foxShed'],
+  '/storage-unit-clearance/': ['storage', 'moving', 'foxStorage', 'killStorage'],
   '/blog/man-and-van-vs-clearance-company/': ['choose'],
   '/blog/skip-hire-alternative/': ['choose', 'clHouse'],
   '/blog/what-happens-to-your-stuff-after-clearance/': ['choose'],
@@ -850,9 +853,12 @@ const RELATED = {
   '/blog/hoarder-clearance-carlow/': ['hoard', 'clHouse', 'choose', 'cost'],
   '/blog/apartment-clearance-newbridge/': ['clApt', 'brayApt', 'clLand', 'choose'],
   '/blog/house-clearance-portarlington/': ['portSat', 'clHouse', 'cost', 'attic'],
-  '/blog/garage-clearance-foxrock/': ['foxAttic', 'moving', 'clHouse', 'cost'],
-  '/blog/attic-clearance-foxrock/': ['attic', 'foxGarage', 'clHouse', 'cost'],
-  '/blog/attic-clearance-killiney/': ['attic', 'foxAttic', 'clHouse', 'choose'],
+  '/blog/garage-clearance-foxrock/': ['foxAttic', 'moving', 'clHouse', 'cost', 'foxShed'],
+  '/blog/attic-clearance-foxrock/': ['attic', 'foxGarage', 'clHouse', 'cost', 'foxStorage'],
+  '/blog/attic-clearance-killiney/': ['attic', 'foxAttic', 'clHouse', 'choose', 'killStorage'],
+  '/blog/shed-clearance-foxrock/': ['foxGarage', 'foxAttic', 'moving', 'clHouse'],
+  '/blog/storage-unit-clearance-foxrock/': ['storage', 'foxShed', 'moving', 'clMove'],
+  '/blog/storage-unit-clearance-killiney/': ['storage', 'foxStorage', 'killAttic', 'choose'],
 };
 function relatedBlock(slug) {
   const keys = RELATED[slug];
