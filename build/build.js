@@ -807,13 +807,16 @@ const G = {
   foxStorage: ['Storage unit clearance in Foxrock: after the move to a smaller home', '/blog/storage-unit-clearance-foxrock/'],
   killStorage: ['Storage unit clearance in Killiney: closing a unit when you live abroad', '/blog/storage-unit-clearance-killiney/'],
   ireland: ['House clearance in Ireland: what to expect and which areas we cover', '/blog/house-clearance-ireland/'],
+  parentHoard: ['Hoarder clearance when a parent hoards: still at home, moving into care, or after a death', '/blog/hoarder-clearance-when-a-parent-hoards/'],
+  largeBer: ['Bereavement clearance in a large family home: room by room, at the family\'s pace', '/blog/bereavement-clearance-large-family-home/'],
+  donate: ['House clearance donations: what a family home can give to people and charities', '/blog/house-clearance-donations/'],
 };
 const RELATED = {
-  '/house-clearance/': ['choose', 'clHouse', 'cost', 'moving', 'wickQuote', 'portBung', 'ireland'],
+  '/house-clearance/': ['choose', 'clHouse', 'cost', 'moving', 'wickQuote', 'portBung', 'ireland', 'donate', 'largeBer', 'parentHoard'],
   '/apartment-clearance/': ['clApt', 'clLand', 'choose', 'brayApt', 'newbApt'],
-  '/bereavement-clearance/': ['family', 'clBer', 'exec', 'probate', 'winter'],
+  '/bereavement-clearance/': ['family', 'clBer', 'exec', 'probate', 'winter', 'largeBer'],
   '/blog/bereavement-clearance-dublin/': ['family', 'clBer', 'exec', 'probate'],
-  '/hoarder-clearance/': ['hoard', 'choose', 'clHouse', 'carlowHoard'],
+  '/hoarder-clearance/': ['hoard', 'choose', 'clHouse', 'carlowHoard', 'parentHoard'],
   '/end-of-tenancy-clearance/': ['clLand', 'prop', 'clApt'],
   '/attic-clearance/': ['attic', 'moving', 'clHouse', 'foxAttic', 'killAttic'],
   '/garage-clearance/': ['moving', 'clHouse', 'kilkFarm', 'foxGarage'],
@@ -821,7 +824,7 @@ const RELATED = {
   '/storage-unit-clearance/': ['storage', 'moving', 'foxStorage', 'killStorage'],
   '/blog/man-and-van-vs-clearance-company/': ['choose'],
   '/blog/skip-hire-alternative/': ['choose', 'clHouse'],
-  '/blog/what-happens-to-your-stuff-after-clearance/': ['choose'],
+  '/blog/what-happens-to-your-stuff-after-clearance/': ['choose', 'donate'],
   '/blog/downsizing-what-to-keep-sell-donate-clear/': ['moving', 'clMove'],
   '/blog/old-sofa-cant-sell/': ['moving'],
   '/blog/house-clearance-swords-guide/': ['clHouse', 'choose'],
@@ -859,6 +862,9 @@ const RELATED = {
   '/blog/shed-clearance-foxrock/': ['foxGarage', 'foxAttic', 'moving', 'clHouse'],
   '/blog/storage-unit-clearance-foxrock/': ['storage', 'foxShed', 'moving', 'clMove'],
   '/blog/storage-unit-clearance-killiney/': ['storage', 'foxStorage', 'killAttic', 'choose'],
+  '/blog/hoarder-clearance-when-a-parent-hoards/': ['hoard', 'carlowHoard', 'family', 'donate'],
+  '/blog/bereavement-clearance-large-family-home/': ['exec', 'clBer', 'probate', 'family', 'donate'],
+  '/blog/house-clearance-donations/': ['choose', 'moving', 'largeBer', 'parentHoard'],
 };
 function relatedBlock(slug) {
   const keys = RELATED[slug];
